@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background-color: #f5f5f5;
+        color: #333;
+    }
+    
+    .barra-principal {
+        background-color: #990000;
+        color: white;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .logo {
+        width: 75px;
+        height: 75px;
+    }
+    
+    .barra-principal nav a {
+        margin: 0 10px;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    
+    .user-btn {
+        background-color: #ffcc00;
+        border: none;
+        padding: 8px 12px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    </style> 
+</head>
+    <header>
+        <div class="barra-principal">     
+                <img class="logo" src= ./imagenes/logo.png alt="Logo de la Universidad de Medellín">
+                <h2> Tu Canala UdeM </h2> 
+                
+            <nav>
+                <a href="index.html">Inicio</a>
+                <a href="./chatbot.html">Chatbot</a>
+                <a href="./mis_solicitudes.html">Mis solicitudes</a>
+                <a href="./mis_citas.html">Mis citas</a>
+                <a href="./reserva_espacios.html">Reserva de Espacios</a>
+            </nav>
+            <button class="user-btn" onclick="window.location.href='./inicio_sesion.html'">Iniciar sesión </button>
+        </div>
+    </header>

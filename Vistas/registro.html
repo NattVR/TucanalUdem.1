@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+
+    body {
+      background-image: url(imagenes/1.png); /* Organizar*/
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    
+    .login-container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
+    .login-container h2 {
+      text-align: center;
+    }
+    .login-container img {
+      display: block;
+      margin: 0 auto 5px;
+      
+    }
+    .login-container input {
+      width: 100%;
+      padding: 10px; 
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .login-container button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      background: #900;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .login-container button:hover {
+      background:  #df0202;
+    }
+
+   
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <h2>Registro</h2>
+    <img src="./imagenes/logo_negro.webp" alt="Logo" style="width: 100px; height: 100px; "  />
+    <form id="formsRegistry" method="POST">
+
+      <p> Nombres </p>
+      <input type="text" name="names" />
+
+      <p> Apellidos </p>
+      <input type="text" name="lastnames" />
+
+      <p> Fecha de nacimiento </p>
+      <input type="date" name="birthdate" />
+
+      <p> Correo electrónico</p>
+      <input type="text" name="email" />
+
+      <p> Contraseña</p>
+      <input type="password" name="password" />
+      <button type="submit">Registrar</button>
+   
+    </form>
+  </div>
+
+  <script>
+
+   document.getElementById('formsRegistry').addEventListener('submit', async function (e) {
+      e.preventDefault(); // Evita recargar la página
+  
+      const formData = new FormData(this);
+      const datos = {
+        names: formData.get('names'),
+        lastnames: formData.get('lastnames'),
+        birthdate: formData.get('birthdate'),
+        email: formData.get('email'),
+        password: formData.get('password')
+      };
+  
+      try {
+        const response = await fetch('http://localhost:5000/tu_canal_udem/register', {
+          method: 'POST',
+          headers: {
+          'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(datos)
+        });
+  
+        const resultado = await response.json();
+        
+        // Redirige si el registro fue exitoso
+        if (response.ok) {
+          alert("Registro exitoso");// CAPTURAR MENSAJES 
+          window.location.href = './inicio_sesion.html';
+        }
+  
+      } catch (error) {
+        alert('Error al registrar. Intenta nuevamente.');
+        console.error(error);
+      }
+    });
+  </script>
+
+</body>
+</html>

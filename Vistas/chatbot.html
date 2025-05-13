@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+
+.main-container {
+  display: flex;
+  align-items: flex-start;
+  margin-left: 100px;
+  margin-top: 20px;
+}
+
+.chatbot-container {
+  background-color: #ffffff;
+  width: 500px;
+  height: 550px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.chatbot-container header {
+  width: 100%;
+  background-color: #900;
+  color: white;
+  text-align: center;
+  border-radius: 10px 10px 0 0;
+}
+
+.chatbot {
+  list-style-type: none;
+  padding: 10px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.chatbot li {
+  font-size: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.chatbot li.bot {
+  max-width: 300px;
+  background-color: #f0f0f0;
+  text-align: left;
+}
+
+.chatbot li.user {
+  max-width: 100px;
+  background-color: rgb(138, 219, 213);
+  color: white;
+  align-self: flex-end;
+  text-align: right;
+  margin-left: auto;
+}
+
+.chat-input {
+  display: flex;
+  padding: 10px;
+}
+
+.chat-input input {
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.chat-input button {
+  background-color: #ffcc00;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.cards {
+  margin-left: 100px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+}
+
+.cards img {
+  width: 300px;
+  height: 550px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+</style>
+</head>
+<body>
+
+  <div id="header"></div>
+
+  <div class="main-container">
+    <div class="chatbot-container">
+
+      <header class="chat-header">
+        <h2>TUNI</h2>
+      </header>
+
+      <ul class="chatbot" id="chatbot">
+        <li class="bot" id="bot-message">¡Hola! Estoy aquí para ayudarte. ¿En qué puedo asistirte hoy? <br><br> 
+          1. Información de Pregrado y Posgrado<br>
+          2. Información de Idiomas <br>
+          3. Información diplomados y cursos de extensión <br>
+          4. Información de Bienestar Universitario <br>
+          5. Reserva de espacios <br>
+          6. Solicitar documentos <br>
+          7. Otro<br><br>
+          Escribe el número de una de las opciones. 
+        </li>
+      </ul>
+
+      <div class="chat-input">
+        <input type="text" id="chat-input" placeholder="Escribe tu mensaje..." />
+        <button class="user-btn" id="btn-send">Enviar</button>
+      </div>
+
+    </div>
+
+    <div class="cards">
+      <img src="./imagenes/side.jpg" alt="Imagen de Pregrado">
+      <img src="./imagenes/side_1.jpeg" alt="Imagen de Idiomas">
+      <img src="./imagenes/side_2.jpg" alt="Imagen de Bienestar">
+    </div>
+
+  </div>
+  <footer>
+    <p>&copy; 2025 Tu Canala UdeM. Todos los derechos reservados.</p>
+  </footer>
+
+  <script src="../Back/chatbot.js"></script>
+  <script src="load_header.js"></script>
+  
+</body>
+</html>

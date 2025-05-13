@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+
+    .side_left, .side_right {
+        margin-top: 50px;
+        margin-left: 15px;
+        margin-right: 15px;
+        width: 48%;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0);
+        border-radius: 8px;
+        
+    }
+
+    .side_left {
+        float: left;
+    }
+
+    .side_right {
+        float: right;
+        background-color: #fff;
+
+    }
+
+    p {
+    margin-bottom: 20px;
+    font-size: 16px;
+    }
+
+    table {
+    width: 100%;
+    border-collapse: collapse;
+    }
+
+    table th, table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+    }
+
+    table th {
+    background-color: #990000;
+    color: white;
+    }
+
+    table tr:nth-child(even) {
+    background-color: #f9f9f9;
+    }
+
+    #footer {
+    clear: both;
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px;
+    font-size: 14px;
+    color: #777;
+    }/*para que #footer no se superponga*/
+
+
+
+  </style>
+</head>
+
+<body>
+
+    <div id="header"></div>
+
+    <div class="side_left">
+        <div id="calendar-container">
+            <h1>Calendario de Citas</h1>
+            <p>Consulta tus citas programadas a través de nuestro calendario.</p>
+            <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FBogota&showPrint=0&showNav=0&showTitle=0&showCalendars=0&src=NDM5NDUyZDE0NTNmZDhhZGZiMzUzMjRkNGQ4YmEyYmJkZjdjNDE2OTMyYzIxODA1YjAwNmEwOWE4NDgwOTY2ZEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23D50000" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+        </div>
+    </div>
+
+    <div class="side_right">
+        <div id="solicitudes-container">
+            <h1>Mis Citas</h1>
+            <p>Consulta tus próximas citas</p>
+            <table>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+                </tr>
+                <tr>
+                    <td>2023-09-15</td>
+                    <td>Solicitud de cita con el profesor Pérez</td>
+                    <td>Proximamente</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <div id="footer">
+        <p>&copy; 2025 Tu Canala UdeM. Todos los derechos reservados.</p>
+    <div>
+        
+</body>
+    <script src="load_header.js"></script>
+</html>

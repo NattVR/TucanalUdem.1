@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Contáctanos</title>
+  <style>
+     
+    main {
+      display: flex;
+      margin-top: 60px;
+    }
+ 
+    .side_left {
+      flex: 1;
+      margin-left: 100px;
+    }
+
+    .side_right {
+      flex: 1;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-right: 100px;  
+      margin-bottom: 20px;
+    }
+
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      color: #990000;
+    }
+
+    .card {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  
+    }
+
+    p {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .form-container {
+      max-width: 450px;      
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #990000;
+      border-radius: 5px;
+      color: white;
+      padding: 10px 25px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #333;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+  </style>
+</head>
+<body>
+
+    <div id="header"></div>
+
+    <main>
+
+      <div class="side_left">
+        <h1>Solicitudes</h1>
+        <p> Completa el formulario si quieres solicitar un docuemnto o certificado </p>
+
+        <div class="form-container">
+
+            <form>
+                <input type="text" name="nombre" placeholder="Tu nombre" required>
+                <input type="text" name="apellido" placeholder="Tu apellido" required>
+                <input type="text" name="id" placeholder="Número de docuento" required>
+                <input type="email" name="email" placeholder="Tu correo electrónico" required>
+                <select name="certificado" required>
+                    <option value="" disabled selected>Selecciona el certificado</option>
+                    <option>Estudios realizados</option>
+                    <option>Matriculado</option>
+                    <option>Calificaciones de estdudios no concluidos</option>
+                </select>
+                <textarea name="mensaje" placeholder="Tu mensaje" required></textarea>
+                <button type="submit">Enviar</button>
+            </form>
+
+        </div>
+      </div>
+      
+        <div class=" side_right">
+
+            <h1>Mis Solicitudes</h1>
+            <p> Aquí puedes ver el estado de tus solicitudes </p>
+
+            <div class="cards">
+              
+                <div class="card">
+                    <h3>Solicitud 1</h3>
+                    <p>Estado: En proceso</p>
+                    <button>Ver detalles</button>
+                </div>
+                <div class="card">
+                    <h3>Solicitud 2</h3>
+                    <p>Estado: Completada</p>
+                    <button>Ver detalles</button>
+                </div>
+                <div class="card">
+                    <h3>Solicitud 3</h3>
+                    <p>Estado: Rechazada</p>
+                    <button>Ver detalles</button>
+                </div>
+
+            </div>
+
+        </div>
+        
+    </main>
+ 
+    </body>
+    <script src="load_header.js"></script>
+    </html>

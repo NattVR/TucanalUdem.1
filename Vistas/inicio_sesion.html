@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .login-container {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
+    .login-container h2 {
+      text-align: center;
+      
+    }
+
+    .login-container img {
+      display: block;
+      margin: 0 auto 20px;
+      
+    }
+    .login-container input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .login-container button {
+      width: 100%;
+      padding: 10px;
+      background: #990000;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .login-container button:hover {
+      background: #df0202;
+    }
+
+    .login-container .link {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .login-container .link a {
+      color: #990000;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+    <h2>Iniciar Sesión</h2>
+    <img src="./imagenes/logo_negro.webp" alt="Logo" style="width: 100px; height: 100px; "  />
+    <form id="formsLogin">
+      <input  name="email" placeholder="Correo electrónico" />
+      <input  name="password" placeholder="Contraseña"  />
+      <button type="submit">Ingresar</button>
+    </form>
+    
+    <div class="link">
+      ¿No tienes cuenta? <a href="registro.html">Regístrate</a>
+    </div>
+  </div>
+
+  <script>
+     document.getElementById('formsLogin').addEventListener('submit', async function (e) {
+      e.preventDefault(); 
+
+      const formData = new FormData(this);
+      const datos = {
+        email: formData.get('email'),
+        password: formData.get('password')
+      };
+
+      try {
+        const response = await fetch('http://localhost:5000/tu_canal_udem/login', {
+          method: 'POST',
+          headers: {
+          'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(datos)
+        });
+  
+        const resultado = await response.json();
+        
+        // Redirige si el registro fue exitoso
+        if (response.ok) {
+          alert("Registro exitoso");
+          window.location.href = './index.html';
+        }
+  
+      } catch (error) {
+        alert('Error al iniciar sesión.');
+        console.error(error);
+      }
+    });
+
+
+  </script>
+</body>
+
+</html>
