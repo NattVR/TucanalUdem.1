@@ -1,0 +1,6 @@
+# Ignora archivos de entorno (sean .env o sin extensión)
+Backend/.env
+Backend/env
+
+# Ignora dependencias de Node.js
+Backend/node_modules/
