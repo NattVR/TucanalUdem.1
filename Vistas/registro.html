@@ -6,7 +6,7 @@
   <style>
 
     body {
-      background-image: url(imagenes/1.png); /* Organizar*/
+      background-image: url(imagenes/2.png); 
       font-family: Arial, sans-serif;
       display: flex;
       justify-content: center;
@@ -16,27 +16,40 @@
     
     .login-container {
       background: white;
-      padding: 30px;
+      padding:0px 20px 25px 15px;
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       width: 300px;
     }
+
     .login-container h2 {
       text-align: center;
     }
+    
     .login-container img {
       display: block;
-      margin: 0 auto 5px;
-      
+      margin: 0 auto;
+    }
+    .login-container p {
+      margin: 10px 0 5px;
+      font-size: 14px;
     }
     .login-container input {
-      width: 100%;
-      padding: 10px; 
+      width: 95%;
+      padding: 8px; 
       border: 1px solid #ccc;
       border-radius: 8px;
     }
+
+    .login-container select {
+      width: 100%;
+      padding: 8px; 
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
     .login-container button {
-      margin-top: 15px;
+     margin-top: 15px;
       width: 100%;
       padding: 10px;
       background: #900;
@@ -45,6 +58,7 @@
       border-radius: 8px;
       cursor: pointer;
     }
+
     .login-container button:hover {
       background:  #df0202;
     }
@@ -64,6 +78,18 @@
 
       <p> Apellidos </p>
       <input type="text" name="lastnames" />
+
+      <p> Tipo de identificación</p>
+      <select>
+        <option value="">-- Selecciona una opción --</option>
+        <option value="CC">Cédula de Ciudadanía</option>
+        <option value="TI">Trjeta de identidad</option>
+        <option value="CE">Cédula de extranjería</option>
+        <option value="PS">Pasaporte</option>
+      </select>
+
+      <p> Número de identificación </p>
+      <input type="text" name="id" />
 
       <p> Fecha de nacimiento </p>
       <input type="date" name="birthdate" />
@@ -103,7 +129,6 @@
   
         const resultado = await response.json();
         
-        // Redirige si el registro fue exitoso
         if (response.ok) {
           alert("Registro exitoso");// CAPTURAR MENSAJES 
           window.location.href = './inicio_sesion.html';

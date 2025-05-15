@@ -16,12 +16,12 @@
 
     .side_left {
         float: left;
+        
     }
 
     .side_right {
         float: right;
-        background-color: #fff;
-
+        
     }
 
     p {
@@ -29,25 +29,27 @@
     font-size: 16px;
     }
 
-    table {
-    width: 100%;
-    border-collapse: collapse;
+    #calendar-container {
+        margin-left: 100px;
+        text-align: center;
     }
 
-    table th, table td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: left;
+    
+    .form-container {
+        margin-left: 150px;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 400px;
+        text-align: center;
     }
 
-    table th {
-    background-color: #990000;
-    color: white;
+    .form-container h1 {
+        color: #333;
+        margin-bottom: 20px;
     }
-
-    table tr:nth-child(even) {
-    background-color: #f9f9f9;
-    }
+    
 
     #footer {
     clear: both;
@@ -55,9 +57,52 @@
     margin-top: 50px;
     padding: 20px;
     font-size: 14px;
-    color: #777;
-    }/*para que #footer no se superponga*/
+    color: #777;}
 
+    .form-container h1 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .form-container label {
+        font-size: 16px;
+        color: #555;
+        display: block;
+        margin-bottom: 8px;
+        text-align: left;
+    }
+
+    .form-container input, .form-container textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    .form-container button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    .form-container button:hover {
+        background-color: #0056b3;
+    }
+
+
+    .form-container .info {
+        margin-top: 15px;
+        font-size: 14px;
+        color: #777;
+    }
 
 
   </style>
@@ -71,27 +116,31 @@
         <div id="calendar-container">
             <h1>Calendario de Citas</h1>
             <p>Consulta tus citas programadas a través de nuestro calendario.</p>
-            <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FBogota&showPrint=0&showNav=0&showTitle=0&showCalendars=0&src=NDM5NDUyZDE0NTNmZDhhZGZiMzUzMjRkNGQ4YmEyYmJkZjdjNDE2OTMyYzIxODA1YjAwNmEwOWE4NDgwOTY2ZEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&color=%23D50000" style="border:solid 1px #777" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+            <iframe src="https://calendar.google.com/calendar/embed?src=udemedellin.soy%40gmail.com&ctz=America%2FBogota" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
         </div>
     </div>
 
     <div class="side_right">
-        <div id="solicitudes-container">
-            <h1>Mis Citas</h1>
-            <p>Consulta tus próximas citas</p>
-            <table>
-                <tr>
-                    <th>Fecha</th>
-                    <th>Descripción</th>
-                    <th>Estado</th>
-                </tr>
-                <tr>
-                    <td>2023-09-15</td>
-                    <td>Solicitud de cita con el profesor Pérez</td>
-                    <td>Proximamente</td>
-                </tr>
-            </table>
-        </div>
+        <div id="form-container" class="form-container">
+            <h1>Solicitud de Cita</h1>
+            <p>Agenda con un asesor.</p>
+            <form>
+                <label>Nombre de la Reunión</label>
+                <input type="text" id="name" placeholder="Ponle un título a tu reunión" required>
+
+                <label >Descripción</label>
+                <textarea id="description" placeholder="Describenos tu duda, problema o motivo de la reunion" required></textarea>
+
+                <label>Fecha</label>
+                <input type="date" id="date" required>
+
+                <label>Selecciona la hora de la cita</label>
+                <input type="time" id="time" required>
+
+                <button type="submit">Agandar</button>
+
+                <p class="info">Recibirás un correo de confirmación una vez que tu cita sea agendada con el respectivo link para la cita virtual.</p>
+            </form>
     </div>
     
     <div id="footer">

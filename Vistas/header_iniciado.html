@@ -20,97 +20,49 @@
     .barra-principal {
         background-color: #990000;
         color: white;
-        padding: 10px 20px;
+        padding: 15px;
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
     
     .logo {
-        width: 75px;
-        height: 75px;
+        width: 100px;
+        height: 100px;
     }
     
+    .barra-principal h2 {
+        font-size: 30px;
+        font-weight: bold;
+        margin-right: auto;
+    }
+
     .barra-principal nav a {
-        margin: 0 10px;
+        font-size: 20px;
+        margin: 0 40px;
         color: white;
         text-decoration: none;
         font-weight: bold;
     }
     
+    .barra-principal nav a:hover {
+        color: #ffcc00;
+    }
+
     .user-btn {
+        font-size: 15px;
         background-color: #ffcc00;
         border: none;
-        padding: 8px 12px;
+        padding: 10px 12px;
         font-weight: bold;
         cursor: pointer;
     }
-    
-    .principal {
-        background: url(./imagenes/fondo_2.jpg) center/cover no-repeat;
-        text-align: center;
-        padding: 60px 20px;
-        color: white;
+
+    .user-btn:hover {
+        background-color: #e67b00;
     }
-    
-    .hero h1 {
-        font-size: 2.5em;
-        margin-top: 10px;
-    }
-    
-    .features {
-        padding: 40px 20px;
-        text-align: center;
-    }
-    
-    .features h2 {
-        font-size: 1.8em;
-        margin-bottom: 10px;
-        font-family: 'Georgia', serif;
-    }
-    
-    .cards {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        margin-top: 30px;
-        gap: 20px;
-    }
-    
-    .card {
-        background-color: white;
-        width: 300px;
-        border-radius: 6px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        padding: 20px;
-        text-align: left;
-    }
-    
-    .card img {
-        width: 100%;
-        border-radius: 4px;
-    }
-    
-    .card h3 {
-        margin: 15px 0 10px;
-    }
-    
-    .card button {
-        background-color: #ffcc00;
-        border: none;
-        padding: 8px 12px;
-        font-weight: bold;
-        cursor: pointer;
-        margin-top: 10px;
-    }
-    
-    footer {
-        background-color: #990000;
-        color: white;
-        text-align: center;
-        padding: 5px;
-    }
-    </style> 
+
+</style> 
 </head>
 
 <body>
@@ -128,43 +80,4 @@
             </nav>
             <button class="user-btn" onclick="window.location.href='./inicio_sesion.html'">Cerrar sesión </button>
         </div>
-
-        <div class="principal">
-            <h2>La plataforma innovadora que transforma la comunicación en la Universidad de Medellín.</h2>
-            <h1>Bienvenido a Tu Canal UdeM</h1>
-        </div>
-
     </header>
-
-    <main>
-        <section class="features">
-            <h2>Características Destacadas</h2>
-            <p>Innovaciones para mejorar tu experiencia universitaria.</p>
-            <div class="cards">
-                <div class="card">
-                    <img src="./imagenes/tuni_2.png" alt="Tuni">
-                    <h3>Tuni</h3>
-                    <p>Un asistente virtual disponible las 24 horas para resolver tus dudas y consultas de manera rápida y eficiente.</p>
-                    <button onclick="window.location.href='./chatbot.html'">Chatea con Tuni</button>
-                </div>
-                <div class="card">
-                    <img src="./imagenes/solicitudes.jpg" alt="Seguimiento">
-                    <h3>Mis Solicitudes</h3>
-                    <p>Permite a los usuarios rastrear el estado de sus solicitudes y recibir notificaciones sobre actualizaciones en sus procesos.</p>
-                    <button>Ver seguimiento</button>
-                </div>
-                <div class="card">
-                    <img src="./imagenes/reserva.jpg" alt="Gestión">
-                    <h3>Reserva de Espacios</h3>
-                    <p>Facilita la reserva de espacios tanto para estudiantes como para profesores, optimizando la utilización de recursos universitarios.</p>
-                    <button>Reserva ahora</button>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <p>© 2025 Tu Canal UdeM. Todos los derechos reservados.</p>
-    </footer>
-</body>
-</html>

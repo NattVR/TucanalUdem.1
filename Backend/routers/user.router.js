@@ -5,7 +5,8 @@ const router = Router();
 
 router.post('/register', UserController.UserRegister);
 router.post('/login', UserController.login);
-router.get('/auth/google', UserController.authUrl);
-router.get('/redirect', UserController.googleRedirect);
+//router.get('/auth/google', UserController.authUrl);
+//router.get('/redirect', UserController.googleRedirect);
 router.post('/createEvent', UserController.createEvent);
+router.get('/logout', UserController.logout);// post
 export default router; 

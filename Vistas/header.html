@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Canal UdeM</title>
     <style>
 
     * {
@@ -21,44 +22,57 @@
     .barra-principal {
         background-color: #990000;
         color: white;
-        padding: 10px 20px;
+        padding: 5px;
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
     
     .logo {
-        width: 75px;
-        height: 75px;
+        width: 100px;
+        height: 100px;
     }
     
+    .barra-principal h2 {
+        font-size: 30px;
+        font-weight: bold;
+        margin-right: auto;
+    }
+
     .barra-principal nav a {
-        margin: 0 10px;
+        font-size: 20px;
         color: white;
+        margin-right: 90px;
         text-decoration: none;
         font-weight: bold;
     }
+    .barra-principal nav a:hover {
+        color: #ffcc00;
+    }
     
     .user-btn {
+        font-size: 15px;
         background-color: #ffcc00;
         border: none;
-        padding: 8px 12px;
+        padding: 10px 12px;
         font-weight: bold;
         cursor: pointer;
     }
+    .user-btn:hover {
+        background-color: #e67b00;
+    }
+
     </style> 
 </head>
     <header>
         <div class="barra-principal">     
                 <img class="logo" src= ./imagenes/logo.png alt="Logo de la Universidad de Medellín">
-                <h2> Tu Canala UdeM </h2> 
+                <h2> Tu Canal UdeM </h2> 
                 
             <nav>
                 <a href="index.html">Inicio</a>
                 <a href="./chatbot.html">Chatbot</a>
-                <a href="./mis_solicitudes.html">Mis solicitudes</a>
                 <a href="./mis_citas.html">Mis citas</a>
-                <a href="./reserva_espacios.html">Reserva de Espacios</a>
             </nav>
             <button class="user-btn" onclick="window.location.href='./inicio_sesion.html'">Iniciar sesión </button>
         </div>

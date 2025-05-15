@@ -17,7 +17,82 @@
         font-size: 2.5em;
         margin-top: 10px;
     }
+   
+    .icons {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-top: 40px;
+    }
+
+    .icon {
+        text-align: center;
+        width: 250px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 6px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+    }
+
+    .icon:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .icon h3 {
+        font-size: 1.2em;
+        margin-top: 10px;
+        color: #333;
+    }
+
+    .icons .icon img {
+        width: 80px;
+        height: 80px;
+        margin-bottom: 10px;
+    }
+
+    .icon:hover{
+        background-color: #cccccc;
+    }
+
+    .intro {
+        margin-top: 40px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10PX;
+        background-color: #f9f9f9;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
     
+    .intro-header {
+        margin-top: 20px;
+        margin-left: 300px;
+        margin-bottom: 20px;
+    }
+
+    .intro h2 {
+        
+        margin-bottom: 12px;
+        font-size: 2em;
+        font-family: 'Georgia', serif;
+    }
+
+    .intro p {
+        margin-right: 200px;
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #333;
+        max-width: 650px;
+    }
+
+    .intro-img {
+        width: 470px;
+        max-width: 100%;
+    }
+
     .features {
         padding: 40px 20px;
         text-align: center;
@@ -28,7 +103,7 @@
         margin-bottom: 10px;
         font-family: 'Georgia', serif;
     }
-    
+
     .cards {
         display: flex;
         flex-wrap: wrap;
@@ -44,17 +119,26 @@
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         padding: 20px;
         text-align: left;
+        transition: transform 0.6s ease, box-shadow 0.3s ease;
+        cursor: pointer;
     }
     
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
     .card img {
         width: 100%;
-        border-radius: 4px;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 6px;
     }
     
     .card h3 {
-        margin: 15px 0 10px;
+        margin: 15px 0 10px;    
     }
-    
+   
     .card button {
         background-color: #ffcc00;
         border: none;
@@ -63,7 +147,11 @@
         cursor: pointer;
         margin-top: 10px;
     }
-    
+
+    .card button:hover {
+            background-color: #e67b00;
+    }
+
     footer {
     clear: both;
     text-align: center;
@@ -71,6 +159,98 @@
     font-size: 14px;
     color: #777;
     }
+
+    .news-blog {
+        text-align: center;
+        padding: 50px 20px;
+        background-color: #f7f7f7;
+        font-family: 'Georgia', serif;
+    }
+
+    .news-blog h2 {
+        font-size: 2em;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .news-blog p {
+        font-size: 1em;
+        color: #555;
+        margin-bottom: 30px;
+    }
+
+    .news-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+
+    .news-card {
+        width: 280px;
+        height: 400px;
+        perspective: 1000px;
+    }
+
+    .card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+        }
+
+    .news-card:hover .card-inner {
+        transform: rotateY(180deg);
+    }
+
+    .card-front,
+    .card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        backface-visibility: hidden;
+        background-color: white;
+        overflow: hidden;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .card-front img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+
+    .card-front h3,
+    .card-front .date {
+        margin: 10px 0;
+        color: #222;
+    }
+
+    .card-back {
+        transform: rotateY(180deg);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+        background-color: #900;
+        color: white;
+    }
+
+    .card-back h3 {
+        margin-bottom: 10px;
+    }
+
+    .card-back p {
+        font-size: 0.95em;
+        line-height: 1.4;
+        color: #e2e2e2;
+    }
+
     </style> 
 </head>
 
@@ -84,34 +264,133 @@
         </div>
         
     </header>
-
     <main>
+
+       <section class="icons">
+        <a href="https://app.udem.edu.co/ConsultasServAcadem/" target="_blank" style="text-decoration: none;">
+            <div class="icon">
+                <img src="./imagenes/calendario (1).png" />
+                <h3>Consultar Horario</h3>
+            </div>
+        </a>
+        <a href="https://uvirtual.udemedellin.edu.co/login/index.php" target="_blank" style="text-decoration: none;">
+            <div class="icon">
+                <img src="./imagenes/costo-de-la-educacion (1).png" />
+                <h3>Procesos de Matrícula</h3>
+            </div>
+        </a>
+        <a href="https://uvirtual.udemedellin.edu.co/login/index.php" target="_blank" style="text-decoration: none;">
+            <div class="icon">
+                <img src="./imagenes/aprender-en-linea.png" />
+                <h3>Uvirtual</h3>
+            </div>
+        </a>
+        <a href="https://uvirtual.udemedellin.edu.co/login/index.php" target="_blank" style="text-decoration: none;">    
+            <div class="icon">
+                <img src="./imagenes/monitor (1).png" />
+                <h3>Facturacion</h3>
+            </div>
+        </a>
+       </section>
+
+       <section class="intro">
+            <div class="intro-header">
+                <img src="./imagenes/Ventajas-del-Call-Center.webp" alt="Icono 1" class="intro-img">
+            </div>
+            <div class="intro-text">
+                <h2>¿Qué es Tu Canal UdeM?</h2>
+                <p>Tu Canal UdeM es una plataforma integral de la Universidad de Medellín que mejora la comunicación institucional y optimiza diversos procesos internos. Ofrece un chatbot disponible 24/7 para resolver dudas de aspirantes y estudiantes, y una herramienta centralizada para gestionar solicitudes como la reserva de espacios 
+                    académicos, administrativos y recreativos. Facilita el seguimiento, acceso a calendarios, generación de reportes e interacción entre dependencias, fortaleciendo la organización interna y la conexión con la comunidad universitaria. Es un pilar clave en la transformación digital de la institución. 
+                </p>
+            </div>
+         </section>
+
         <section class="features">
             <h2>Características Destacadas</h2>
             <p>Innovaciones para mejorar tu experiencia universitaria.</p>
             <div class="cards">
+
                 <div class="card">
                     <img src="./imagenes/tuni_2.png" alt="Tuni">
                     <h3>Tuni</h3>
                     <p>Un asistente virtual disponible las 24 horas para resolver tus dudas y consultas de manera rápida y eficiente.</p>
                     <button onclick="window.location.href='./chatbot.html'">Chatea con Tuni</button>
                 </div>
+
                 <div class="card">
                     <img src="./imagenes/solicitudes.jpg" alt="Seguimiento">
                     <h3>Mis Solicitudes</h3>
                     <p>Permite a los usuarios rastrear el estado de sus solicitudes y recibir notificaciones sobre actualizaciones en sus procesos.</p>
-                    <button>Ver seguimiento</button>
+                    <button onclick="window.location.href='./mis_solicitudes.html'">Ver seguimiento</button>
                 </div>
+
                 <div class="card">
                     <img src="./imagenes/reserva.jpg" alt="Gestión">
                     <h3>Reserva de Espacios</h3>
                     <p>Facilita la reserva de espacios tanto para estudiantes como para profesores, optimizando la utilización de recursos universitarios.</p>
-                    <button>Reserva ahora</button>
+                    <button onclick="window.location.href='./reserva_espacios.html'">Reserva ahora</button>
                 </div>
             </div>
         </section>
-    </main>
 
+        <section class="news-blog">
+            <h2>Blog de Noticias y Actualizaciones</h2>
+            <p>Mantente informado sobre las últimas novedades y eventos en nuestra plataforma.</p>
+        
+            <div class="news-container">
+                <div class="news-card">
+                    <div class="card-inner">
+
+                      <div class="card-front">
+                        <img src="./imagenes/noticia1.jpg" alt="Avances Académicos">
+                        <h3>Remodelación de espacios en la UdeM</h3>
+                        <p class="date">20 de marzo de 2025</p>
+                      </div>
+
+                      <div class="card-back">
+                        <h3>Remodelación de espacios en la UdeM</h3>
+                        <p>La Universidad de Medellín continúa avanzando en su remodelación de diversos espacios académicos y administrativos. Las obras incluyen la modernización de aulas, zonas comunes, laboratorios y auditorios, priorizando la accesibilidad, la sostenibilidad y el confort.  </p>
+                      </div>
+
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-inner">
+
+                      <div class="card-front">
+                        <img src="./imagenes/noticia2.jpg" alt="Avances Académicos">
+                        <h3>Avances Académicos</h3>
+                        <p class="date">18 de marzo de 2025</p>
+                      </div>
+
+                      <div class="card-back">
+                        <h3>Avances Académicos</h3>
+                        <p>Se han logrado importantes avances en proyectos académicos interdisciplinarios que fortalecen la calidad educativa.</p>
+                      </div>
+
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="card-inner">
+
+                      <div class="card-front">
+                        <img src="./imagenes/noticia3.jpg" alt="Avances Académicos">
+                        <h3>Campus Vivo</h3>
+                        <p class="date">11 de marzo de 2025</p>
+                      </div>
+
+                      <div class="card-back">
+                        <h3>Campus Vivo</h3>
+                        <p>El campus de la Universidad de Medellín se consolida como un ecosistema vivo, con una notable presencia de flora y fauna silvestre. Halcones, zarigüeyas, zorros y una gran variedad de aves habitan en sus áreas verdes, lo que ha despertado el interés de biólogos y ambientalistas. </p>
+                      </div>
+
+                    </div>
+                </div>   
+            </div>
+        </section>
+    </main>
     <footer>
         <p>© 2025 Tu Canal UdeM. Todos los derechos reservados.</p>
     </footer>
