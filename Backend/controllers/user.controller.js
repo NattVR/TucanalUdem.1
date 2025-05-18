@@ -88,12 +88,24 @@ const auth1 = new google.auth.GoogleAuth({
 const createEvent = async (req, res) => {
     
     const {name, description, date, time } = req.body;
+    console.log(req.body);
     const startDateTime = moment(`${date}T${time}`);
     const endDateTime = startDateTime.clone().add(25, 'minutes');
+    const now = moment();
+    console.log('startDateTime:', startDateTime.format());
+    console.log('endDateTime:', endDateTime.format());
+    
+    if (startDateTime.isBefore(now)) {
+        return res.status(400).json({ error: 'La fecha y hora de inicio no pueden ser en el pasado.' });
+    }
+    if (!name || !description || !date || !time) {
+        return res.status(400).json({ error: 'Todos los campos son obligatorios.' });
+    }
+
     const event = {
       'summary': name,
       'location': 'Medellin, Colombia',
-      'description': description,
+      'description': description + 'https://meet.google.com/rfz-igiw-cbd',
       'start': {
         'dateTime': startDateTime.toISOString(),
         'timeZone': 'America/Bogota',
@@ -102,18 +114,14 @@ const createEvent = async (req, res) => {
         'dateTime': endDateTime.toISOString(),
         'timeZone': 'America/Bogota',
       },
-      'conferenceData': {
-        'createRequest': {
-          'requestId': Math.random().toString(36).substring(7),
-          'conferenceSolutionKey': { type: 'hangoutsMeet' },
-        },
       'reminders': {
       'useDefault': false,
       'overrides': [
         {'method': 'email', 'minutes': 24 * 60},
         {'method': 'popup', 'minutes': 10},
       ],  
-      }}}
+      }};
+      
     console.log('Evento:', event);
     try {
         const authClient = await auth1.getClient();
@@ -124,6 +132,8 @@ const createEvent = async (req, res) => {
             resource: event,
         });
         res.status(200).json(response.data);
+        console.log(event)
+        
     } catch (error) {
         console.error('Error creating event:', error);
         res.status(500).json({ error: 'Error creating event' });

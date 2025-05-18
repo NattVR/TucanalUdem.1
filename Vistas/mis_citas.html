@@ -103,8 +103,18 @@
         font-size: 14px;
         color: #777;
     }
-
-
+    .form-container select {
+        width: 105%;
+        padding: 10px;
+        margin: 8px 0;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+    .form-container textarea {
+        height: 100px;
+        resize: none;
+    }
   </style>
 </head>
 
@@ -124,18 +134,49 @@
         <div id="form-container" class="form-container">
             <h1>Solicitud de Cita</h1>
             <p>Agenda con un asesor.</p>
-            <form>
-                <label>Nombre de la Reunión</label>
-                <input type="text" id="name" placeholder="Ponle un título a tu reunión" required>
+            <form id="CreateEvent" method="POST">
 
+                <label>Nombre de la Reunión</label>
+                <select name="name">
+                    <option value="">Ponle un título a tu reunión</option>
+                    <option value="Información Académica">Información Académica</option>
+                    <option value="Becas y Apoyos Financieros">Becas y Apoyos Financieros</option>
+                    <option value="Facturación UdeM">Facturación UdeM</option>
+                    <option value="Asesoría Académica">Asesoría Académica</option>
+                    <option value="Trámites y Asesoría">Trámites y Asesoría</option>
+                    <option value="Otros">Otros</option>
+                  </select>
+            
                 <label >Descripción</label>
-                <textarea id="description" placeholder="Describenos tu duda, problema o motivo de la reunion" required></textarea>
+                <textarea id="description" name="description" placeholder="Describenos tu duda, problema o motivo de la reunion" required></textarea>
 
                 <label>Fecha</label>
-                <input type="date" id="date" required>
+                <input type="date" id="date" name="date" required>
 
-                <label>Selecciona la hora de la cita</label>
-                <input type="time" id="time" required>
+                <label for="time">Hora</label>
+                <select id="time" name="time" required>
+                  <option value="">Seleccione un horario</option>
+                  <option value="08:00:00">08:00</option>
+                  <option value="08:25:00">08:25</option>
+                  <option value="08:50:00">08:50</option>
+                  <option value="09:15:00">09:15</option>
+                  <option value="09:40:00">09:40</option>
+                  <option value="10:05:00">10:05</option>
+                  <option value="10:30:00">10:30</option>
+                  <option value="10:55:00">10:55</option>
+                  <option value="11:20:00">11:20</option>
+                  <option value="11:45:00">11:45</option>
+                  <option value="14:00:00">14:00</option>
+                  <option value="14:25:00">14:25</option>
+                  <option value="14:50:00">14:50</option>
+                  <option value="15:15:00">15:15</option>
+                  <option value="15:40:00">15:40</option>
+                  <option value="16:05:00">16:05</option>
+                  <option value="16:30:00">16:30</option>
+                  <option value="16:55:00">16:55</option>
+                  <option value="17:20:00">17:20</option>
+                  <option value="17:55:00">17:55</option>
+                </select>
 
                 <button type="submit">Agandar</button>
 
@@ -149,4 +190,39 @@
         
 </body>
     <script src="load_header.js"></script>
+<script>
+    document.getElementById('CreateEvent').addEventListener('submit', async function (e) {
+      e.preventDefault(); 
+    
+      const formData = new FormData(this);
+      
+      const datos = {
+        name: formData.get('name'),
+        description: formData.get('description'),
+        date: formData.get('date'),
+        time: formData.get('time')
+      };
+
+      try {
+        const response = await fetch('http://localhost:5000/tu_canal_udem/createEvent', {
+          method: 'POST',
+          headers: {
+          'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(datos)
+        });
+  
+        const resultado = await response.json();
+        
+        if (response.ok) {
+          alert("Cita creada exitosamente");
+        }
+  
+      } catch (error) {
+        alert('Error al crear cita. Intanta nuevamente.');
+        console.error(error);
+      }
+    });
+</script>
+
 </html>
