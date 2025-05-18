@@ -83,7 +83,7 @@
       <select name="id_type">
         <option value="">-- Selecciona una opción --</option>
         <option value="CC">Cédula de Ciudadanía</option>
-        <option value="TI">Trjeta de identidad</option>
+        <option value="TI">Tarjeta de identidad</option>
         <option value="CE">Cédula de extranjería</option>
         <option value="PS">Pasaporte</option>
       </select>
@@ -132,7 +132,7 @@
         const resultado = await response.json();
         
         if (response.ok) {
-          alert("Registro exitoso");// CAPTURAR MENSAJES 
+          alert("Registro exitoso");
           window.location.href = './inicio_sesion.html';
         }
   
