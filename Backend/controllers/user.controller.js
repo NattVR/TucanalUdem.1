@@ -6,22 +6,16 @@ import { auth } from "googleapis/build/src/apis/abusiveexperiencereport/index.js
 import path from 'path';
 
 
-
 const UserRegister = async (req, res) => {
     try {
-        const { names, lastnames, birthdate, email, password } = req.body;
+        const { names, lastnames,id_type, id, birthdate, email, password } = req.body;
         console.log(req.body);
         
-        if (!names || !lastnames || !birthdate || !email || !password) {
+        if (!names || !lastnames || !birthdate || !email || !password || !id_type || !id) {
             return res.status(400).json({ message: 'All fields are required' });
         }
 
-        const existingUser = await UserModel.findUserByEmail(email);
-        if (existingUser) {
-            return res.status(400).json({ message: 'User already exists' });
-        }
-
-        const newUser = await UserModel.createUser({ names, lastnames, birthdate, email, password });
+        const newUser = await UserModel.createUser({ names, lastnames, id_type, id, birthdate, email, password });
         return res.status(201).json({ ok:true , message: 'ok' , newUser });
     }
     catch (error) {
@@ -34,27 +28,30 @@ const UserRegister = async (req, res) => {
 
 const login = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { id_type,id, password } = req.body;
         console.log(req.body);
 
-        if (!email || !password) {
+        if (!id_type || !password || !id) {
             return res.status(400).json({ message: 'All fields are required' });
         }
 
-        const user = await UserModel.searchUser(email,password);
+        const user = await UserModel.searchUser(id_type,id,password);
         if (!user) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
-        if (user.password !== password && user.email !== email) {
+        if (user.password !== password && user.id !== id && user.id_type !== id_type) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
         else{
-            req.session.user = user; 
-            req.session.isLoggedIn = true;
-            console.log('Usuario autenticado:', req.session.user);
-            return res.status(200).json({ message: 'Login successful', user });
-        }
-        
+        req.session.user = user; 
+        req.session.isLoggedIn = true;req.session.save(err => {
+          if (err) {
+            console.error('Error al guardar la sesión:', err);
+            return res.status(500).json({ message: 'Error interno al guardar la sesión' });
+          }
+          return res.status(200).json({ message: 'Login successful', user });
+        });
+        }   
     }
     catch (error) {
         console.error('Error in login:', error);
@@ -78,39 +75,6 @@ const logout = (req, res) => {
       res.json({ message: 'Sesión cerrada' });
     });
   };
-
-
-/*const authUrl = (req, res) => {
-const url = OAuth2Client.generateAuthUrl({
-    access_type: 'offline',
-    scope: ['https://www.googleapis.com/auth/userinfo.profile',
-            'https://www.googleapis.com/auth/calendar',
-            'https://www.googleapis.com/auth/calendar.events',
-            'https://www.googleapis.com/auth/calendar.events.owned'          
-    ],
-    redirect_uri: process.env.REDIRECT_URL
-});
-res.redirect(url);
-};
-
-const googleRedirect = async (req, res) => {
-    const { code } = req.query;
-    console.log('Código de autorización:', code);
-    try {
-        const { tokens } = await OAuth2Client.getToken(code);
-        OAuth2Client.setCredentials(tokens);
-        const oauth2 = google.oauth2({
-            auth: OAuth2Client,
-            version: 'v2',
-        });
-        const userInfo = await oauth2.userinfo.get();
-        res.json(userInfo.data);
-        console.log(userInfo.data); 
-    } catch (error) {
-        console.error('Error al obtener el token de acceso:', error);
-        res.status(500).send('Error al autenticar con Google');
-    }
-}*/
 
 
 const auth1 = new google.auth.GoogleAuth({
@@ -175,7 +139,8 @@ export const UserController = {
     UserRegister,
     login,
     createEvent,
-    logout
+    logout,
+    checkAuth,
     //googleRedirect: authUrl
     //authUrl,
     //googleRedirect,

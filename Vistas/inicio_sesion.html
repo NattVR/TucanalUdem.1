@@ -15,7 +15,7 @@
 
     .login-container {
       background: white;
-      padding: 0px 35px 40px 10px;
+      padding: 0px 16px 40px 10px;
       border-radius: 15px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       width: 300px;
@@ -31,15 +31,15 @@
       
     }
     .login-container input {
-      width: 100%;
+      width: 92%;
       padding: 10px;
       margin: 10px 0;
       border: 1px solid #ccc;
       border-radius: 8px;
     }
     .login-container button {
-      width: 100%;
-      margin-left: 10px;
+      width: 90%;
+      margin-left: 15px;
       padding: 10px;
       background: #990000;
       color: white;
@@ -59,6 +59,15 @@
       color: #990000;
       text-decoration: none;
     }
+
+    .login-container select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    
   </style>
 </head>
 <body>
@@ -67,7 +76,15 @@
     <h2>Iniciar Sesión</h2>
     <img src="./imagenes/logo_negro.webp" alt="Logo" style="width: 100px; height: 100px; "  />
     <form id="formsLogin">
-      <input  name="email" placeholder="Correo electrónico" />
+
+      <select name="id_type">
+        <option value="">Tipo de identificación</option>
+        <option value="CC">Cédula de Ciudadanía</option>
+        <option value="TI">Trjeta de identidad</option>
+        <option value="CE">Cédula de extranjería</option>
+        <option value="PS">Pasaporte</option>
+      </select>
+      <input  name="id" placeholder="Identificación" />
       <input  name="password" placeholder="Contraseña"  />
       <button type="submit">Ingresar</button>
     </form>
@@ -87,13 +104,15 @@
 
       const formData = new FormData(this);
       const datos = {
-        email: formData.get('email'),
+        id_type: formData.get('id_type'),
+        id: formData.get('id'),
         password: formData.get('password')
       };
 
       try {
         const response = await fetch('http://localhost:5000/tu_canal_udem/login', {
           method: 'POST',
+          credentials: 'include', // Incluye las cookies en la solicitud
           headers: {
           'Content-Type': 'application/json'
           },

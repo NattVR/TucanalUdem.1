@@ -80,7 +80,7 @@
       <input type="text" name="lastnames" />
 
       <p> Tipo de identificación</p>
-      <select>
+      <select name="id_type">
         <option value="">-- Selecciona una opción --</option>
         <option value="CC">Cédula de Ciudadanía</option>
         <option value="TI">Trjeta de identidad</option>
@@ -107,12 +107,14 @@
   <script>
 
    document.getElementById('formsRegistry').addEventListener('submit', async function (e) {
-      e.preventDefault(); // Evita recargar la página
+      e.preventDefault(); 
   
       const formData = new FormData(this);
       const datos = {
         names: formData.get('names'),
         lastnames: formData.get('lastnames'),
+        id_type: formData.get('id_type').trim(),
+        id: formData.get('id').trim(),
         birthdate: formData.get('birthdate'),
         email: formData.get('email'),
         password: formData.get('password')

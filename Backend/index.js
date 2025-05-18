@@ -5,9 +5,13 @@ import userRouter from './routers/user.router.js';
 import { PORT } from './config.js';
 import session from 'express-session';
 
+const corsOptions = {
+  origin: 'http://localhost:3000', 
+  credentials: true
+};
 
 const app = express();
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 

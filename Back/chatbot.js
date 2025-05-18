@@ -34,29 +34,15 @@ const res2 = `El Centro de Idiomas de la UdeMedellín ofrece una variedad de pro
 2. Cursos Intensivos: Diseñados para avanzar más rápidamente, estos cursos tienen una duración de 80 horas con una intensidad de 10 horas semanales. El costo por curso es de $1.230.000 COP.<br><br>
 3. Cursos Vacacionales: Ofrecen la posibilidad de avanzar en dos niveles en un periodo corto, con una duración de 80 horas y una intensidad de 24 horas semanales. El costo por curso es de $1.230.000 COP.<br><br><br>
 4. Inglés para Maestría y Doctorado: Programas especializados para estudiantes de posgrado. El costo por curso es de $488.000 COP y tiene una duración de 40 horas.<br><br>
-<a href="https://centrodeidiomas.udemedellin.edu.co/" target="_blank">haz clic aquí</a>`;
+<a href="https://centrodeidiomas.udemedellin.edu.co/" target="_blank">🔗haz clic aquí</a>`;
 
 const res3 = `🎓 Oferta de Educación Continuada UdeMedellín <br><br>
 ✅ Diplomados y Cursos<br>
 Más de 300 programas en Derecho, Ingeniería, Diseño, Comunicación, Ciencias Económicas, Humanas y Básicas, enfocados en el desarrollo de competencias profesionales y personales.<br>
-<a href="http://localhost:3000/Vistas/reserva_espacios.html" target="_blank">haz clic aquí 📅 </a><br><br>
-
-✅ Cursos Gratuitos en Alianza con Comfenalco<br>
-Para afiliados o desempleados, con modalidades virtual y semipresencial.<br>
-<a href="http://localhost:3000/Vistas/reserva_espacios.html" target="_blank">haz clic aquí 📅 </a><br><br>
-
-✅ Diplomatura en Moda (con Inexmoda)
-Enfocada en el sistema moda y estrategias de mercado.<br>
-<a href="http://localhost:3000/Vistas/reserva_espacios.html" target="_blank">haz clic aquí 📅 </a><br><br>
-
-✅ Cursos Libres
-Asignaturas individuales de pregrado y posgrado.<br>
-Para personas externas a la universidad.<br>
-Costo:<br>
-Pregrado: $1.512.000 por asignatura.<br>
-Posgrado: depende del número de créditos.<br>
-
-<a href="http://localhost:3000/Vistas/reserva_espacios.html" target="_blank">haz clic aquí 📅 </a><br>`;
+Para más información sobre los curos que se ofrecen, visita el siguiente enlace: <br>
+<a href="https://educacioncontinuada.udemedellin.edu.co/cursos/" target="_blank">haz clic aquí📅</a><br><br>
+Para más información sobre los diplomados que se ofrecen, visita el siguiente enlace: <br>
+<a href="https://educacioncontinuada.udemedellin.edu.co/diplomados/" target="_blank">haz clic aquí📅</a><br><br>`;
 
 const res4 = `Bienestar Universitario de la Universidad de Medellín ofrece una variedad de servicios y programas destinados a promover la formación integral y el bienestar de toda la comunidad universitaria.<br><br>
 
@@ -67,17 +53,18 @@ const res4 = `Bienestar Universitario de la Universidad de Medellín ofrece una 
 🏃 Deportes: <br>Actividades deportivas recreativas y competitivas. Escuelas de formación abiertas a toda la comunidad.<br><br>
 
 🎭 Arte y Cultura: <br> Talleres y proyectos para fortalecer la creatividad, la expresión artística y la participación cultural.<br><br>
-Para mas información: <a href="https://bienestaruniversitario.udemedellin.edu.co/" target="_blank">haz clic 🔗 aquí</a>`
+Para mas información: <a href="https://bienestaruniversitario.udemedellin.edu.co/" target="_blank">🔗haz clic aquí</a>`
 
 const res5 = ` Si eres estudiante de la Universidad de Medellín, puedes reservar los espacios de la universidad a través del siguiente enlace.
-Si eres externo, comunícate al siguiente correo electrónico para recibir más información.  <br>
-<a href="http://localhost:3000/Vistas/reserva_espacios.html" target="_blank">haz clic aquí 📅 </a><br>`;
+<a href="http://localhost:3000/Vistas/reserva_espacios.html" target="_blank">haz clic aquí📅</a><br>
+Si eres externo, comunícate con el teatro de la Universidad de Medellín a través del siguiente número (57)(604)590 45 00 Ext:30834.<br>
+`;
 
 const res6 = `Si eres estudiante de la Universidad de Medellín, y requieres solicitar documentos hazlo a través del siguiente enlace.<br>
-<a href="http://localhost:3000/Vistas/mis_solicitudes.html" target="_blank">haz clic aquí 📋 </a><br>`;
+<a href="http://localhost:3000/Vistas/mis_solicitudes.html" target="_blank">haz clic aquí📋</a><br>`;
 
 const res7 =`Si tienes alguna otra consulta o quieres comunicarte con un asesor por favor haz click en el siguiente enlace.
-<a href="http://localhost:3000/Vistas/mis_citas.html" target="_blank">haz clic aquí 🧑‍💻 </a>`;
+<a href="http://localhost:3000/Vistas/mis_citas.html" target="_blank">haz clic aquí🧑‍💻</a>`;
 
 function displayMessage (type, message) {
     const chatBox = document.getElementById('chatbot');
