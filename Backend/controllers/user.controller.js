@@ -82,6 +82,41 @@ const auth1 = new google.auth.GoogleAuth({
     scopes: ['https://www.googleapis.com/auth/calendar'],
   });
 
+
+  const getAllEvents= async (req, res) => {
+    try {
+    const { start, end } = req.body;
+    const authClient = await auth1.getClient();
+    const calendar = google.calendar({ version: 'v3', auth: authClient });
+    const calendarId= 'udemedellin.soy@gmail.com';
+  
+    const response = await calendar.events.list({
+      calendarId,
+      timeMin: start, 
+      timeMax: end,
+      maxResults: 100,
+      singleEvents: true,
+      orderBy: 'startTime',
+    });
+  
+    const events = response.data.items;
+  
+    if (events.length) { 
+      events.forEach(event => {
+        console.log(event.summary);
+      });
+   
+      return res.status(200).json(events);
+  
+    } else {
+      return res.status(200).json({ message: 'No se encontraron eventos.' });
+    }}
+   catch (err) {
+    console.error('Error al obtener la lista de eventos:', err);
+    return res.status(500).json({ error: 'Error al obtener los eventos' });
+  }
+  };
+
 //inicializar gooogle calnedar 
 //const calendar = google.calendar({ version: 'v3', auth: auth });
 // Crear evento en Google Calendar
@@ -89,11 +124,14 @@ const createEvent = async (req, res) => {
     
     const {name, description, date, time } = req.body;
     console.log(req.body);
+
     const startDateTime = moment(`${date}T${time}`);
     const endDateTime = startDateTime.clone().add(25, 'minutes');
     const now = moment();
-    console.log('startDateTime:', startDateTime.format());
-    console.log('endDateTime:', endDateTime.format());
+    const dayOfWeek = startDateTime.day(); // 0 = domingo, 6 = sábado
+    if (dayOfWeek === 0 || dayOfWeek === 6) {
+        return res.status(400).json({ error: 'No se pueden crear eventos los fines de semana.' });
+    }
     
     if (startDateTime.isBefore(now)) {
         return res.status(400).json({ error: 'La fecha y hora de inicio no pueden ser en el pasado.' });
@@ -141,16 +179,13 @@ const createEvent = async (req, res) => {
 };
 
 
-
-
-//Crerar evento en Google Calendar
-
 export const UserController = {
     UserRegister,
     login,
     createEvent,
     logout,
     checkAuth,
+    getAllEvents,
     //googleRedirect: authUrl
     //authUrl,
     //googleRedirect,

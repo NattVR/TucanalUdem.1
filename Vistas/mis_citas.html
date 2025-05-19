@@ -178,7 +178,7 @@
                   <option value="17:55:00">17:55</option>
                 </select>
 
-                <button type="submit">Agandar</button>
+                <button type="submit">Agendar</button>
 
                 <p class="info">Recibirás un correo de confirmación una vez que tu cita sea agendada con el respectivo link para la cita virtual.</p>
             </form>
@@ -193,9 +193,13 @@
 <script>
     document.getElementById('CreateEvent').addEventListener('submit', async function (e) {
       e.preventDefault(); 
-    
+
       const formData = new FormData(this);
-      
+      const date = formData.get('date');      
+      const time = formData.get('time'); 
+      const start = new Date(`${date}T${time}-05:00`);
+      const end = new Date(start.getTime() + 25 * 60000);
+
       const datos = {
         name: formData.get('name'),
         description: formData.get('description'),
@@ -203,7 +207,32 @@
         time: formData.get('time')
       };
 
+      const validate ={
+        start: start.toISOString(),
+        end: end.toISOString()
+      }
+
       try {
+        const response = await fetch('http://localhost:5000/tu_canal_udem/getEvents', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(validate)
+        });
+  
+        const resultado = await response.json();
+        if (!response.ok) {
+            alert("Error al verificar la cita. "+resultado.error);
+        }
+        if(resultado.length > 0){
+            return alert('Ya existe una cita en ese horario. Elige otro.');
+        }
+        } catch (err) {
+        console.error(err);
+        return alert('Error de conexión al verificar cita.');
+    }
+        try {
         const response = await fetch('http://localhost:5000/tu_canal_udem/createEvent', {
           method: 'POST',
           headers: {
@@ -213,16 +242,18 @@
         });
   
         const resultado = await response.json();
-        
-        if (response.ok) {
-          alert("Cita creada exitosamente");
+
+        if (!response.ok) {
+            alert("Error al crear la cita. "+ resultado.error);
         }
-  
-      } catch (error) {
-        alert('Error al crear cita. Intanta nuevamente.');
+        else {
+            alert("Cita creada exitosamente");}   
+    
+        }catch (error) {
+        alert('Error al verificar cita. Intenta nuevamente.');
         console.error(error);
       }
-    });
+    });     
 </script>
 
 </html>
