@@ -14,7 +14,15 @@ document.addEventListener("DOMContentLoaded", async function () {
         .then(response => response.text())
         .then(data => {
           document.getElementById('header').innerHTML = data;
+
+        const logoutbtn=document.getElementById("btnlogout");
+          if (logoutbtn) {
+            logoutbtn.addEventListener('click', logout);
+          } else {
+            console.warn('Botón de cerrar sesión no encontrado');
+          }
         });
+
       } else {
         console.log('Usuario no autenticado');
         fetch('header.html')
@@ -26,3 +34,21 @@ document.addEventListener("DOMContentLoaded", async function () {
     } catch (error) {
         console.error('Error:', error);
     }});
+
+function logout() {
+    fetch('http://localhost:5000/tu_canal_udem/logout', {
+        method: 'POST',
+        credentials: 'include', 
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('Sesión cerrada exitosamente');
+            window.location.href = 'index.html';
+        } else {
+            console.error('Error al cerrar sesión');
+        }
+    })
+}

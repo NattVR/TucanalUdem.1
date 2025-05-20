@@ -4,6 +4,7 @@ import { google } from "googleapis";
 import moment from "moment-timezone";
 import { auth } from "googleapis/build/src/apis/abusiveexperiencereport/index.js";
 import path from 'path';
+import PDFDocument from 'pdfkit';
 
 
 const UserRegister = async (req, res) => {
@@ -72,10 +73,9 @@ const logout = (req, res) => {
     req.session.destroy(err => {
       if (err) return res.status(500).json({ message: 'Error cerrando sesión' });
       res.clearCookie('connect.sid');
-      res.json({ message: 'Sesión cerrada' });
+      return res.json({ message: 'Sesión cerrada' });
     });
   };
-
 
 const auth1 = new google.auth.GoogleAuth({
     keyFile: 'C:\\Users\\123\\Documents\\TucanalUdem\\Backend\\credentials-service-account.json',
@@ -178,6 +178,143 @@ const createEvent = async (req, res) => {
     }
 };
 
+//PDF
+
+const generarCertificado = async (req, res) => {
+  try {
+      console.log('req.session.user',req.session.user);
+      if (!req.session.user) {
+          return res.status(401).json({ message: 'No autorizado' });
+      }
+
+      const { tipo } = req.params;
+      const { id_type, id} = req.session.user;
+
+      if (tipo === 'estudios_realizados') {
+          const estudios = await UserModel.obtenerEstudiosRealizados(id_type, id);
+          if (estudios.length === 0) {
+              return res.status(404).json({ 
+                  ok: false,
+                  message: 'No se encontraron estudios realizados' 
+              });
+          }
+          res.status(200).json({
+              ok: true,
+              data: estudios,
+              tipo: 'estudios_realizados'
+          });
+      } else if (tipo === 'estudios_en_progreso') {
+          const estudios = await UserModel.obtenerEstudiosEnProgreso(id_type, id);
+          if (estudios.length === 0) {
+              return res.status(404).json({ 
+                  ok: false,
+                  message: 'No se encontraron estudios en progreso' 
+              });
+          }
+          res.status(200).json({
+              ok: true,
+              data: estudios,
+              tipo: 'estudios_en_progreso'
+          });
+      } else {
+          res.status(400).json({ 
+              ok: false,
+              message: 'Tipo de certificado inválido' 
+          });
+      }
+  } catch (error) {
+      console.error('Error en generarCertificado:', error);
+      res.status(500).json({ 
+          ok: false,
+          message: 'Error interno del servidor' 
+      });
+  }
+};
+
+const generarPDF = async (req, res) => {
+  try {
+      if (!req.session.user) {
+          return res.status(401).json({ message: 'No autorizado' });
+      }
+
+      const { tipo } = req.params;
+      const { id_type,id,names } = req.session.user;
+      
+      let estudios, titulo;
+      if (tipo === 'estudios_realizados') {
+          estudios = await UserModel.obtenerEstudiosRealizados(id_type,id);
+          titulo = 'CERTIFICADO DE ESTUDIOS REALIZADOS';
+      } else {
+          estudios = await UserModel.obtenerEstudiosEnProgreso(id_type,id);
+          titulo = 'CERTIFICADO DE ESTUDIOS EN PROGRESO';
+      }
+
+      if (estudios.length === 0) {
+          return res.status(404).json({ 
+              ok: false,
+              message: 'No se encontraron registros' 
+          });
+      }
+
+      const doc = new PDFDocument();
+      
+      res.setHeader('Content-Type', 'application/pdf');
+      res.setHeader('Content-Disposition', `attachment; filename=certificado_${tipo}_${id}.pdf`);
+      
+      doc.pipe(res);
+
+      
+      doc.fontSize(20).text('Universidad de Medellín', { align: 'center' });
+      doc.fontSize(16).text(titulo, { align: 'center' });
+      doc.moveDown();
+
+      doc.fontSize(12).text(`Nombre: ${names}`, { align: 'left' });
+      doc.text(`Documento: ${id_type.toUpperCase()} ${id}`, { align: 'left' });
+      doc.text(`Fecha de emisión: ${new Date().toLocaleDateString()}`, { align: 'left' });
+      doc.moveDown();
+      doc.moveDown();
+
+      estudios.forEach((estudio, index) => {
+          if (tipo === 'estudios_realizados') {
+              doc.fontSize(14).text(`${estudio.tipo_estudio.toUpperCase()} EN ${estudio.programa.toUpperCase()}`);
+              doc.fontSize(12).text(`Facultad: ${estudio.facultad}`);
+              doc.text(`Año de graduación: ${estudio.año_graduacion}`);
+              doc.text(`Promedio: ${estudio.promedio || 'No disponible'}`);
+              if (estudio.acta_grado) {
+                  doc.text(`Acta de grado: ${estudio.acta_grado}`);
+              }
+          } else {
+              doc.fontSize(14).text(`PROGRAMA: ${estudio.programa.toUpperCase()}`);
+              doc.fontSize(12).text(`Facultad: ${estudio.facultad}`);
+              doc.text(`Semestre actual: ${estudio.semestre_actual}`);
+              doc.text(`Promedio: ${estudio.promedio || 'No disponible'}`);
+              doc.text(`Créditos aprobados: ${estudio.creditos_aprobados} de ${estudio.creditos_total}`);
+              if (estudio.fecha_inicio && estudio.fecha_estimada_fin) {
+                  doc.text(`Periodo: ${estudio.fecha_inicio} a ${estudio.fecha_estimada_fin}`);
+              }
+          }
+          
+          if (index < estudios.length - 1) {
+              doc.moveDown();
+              doc.text('--------------------------------------------------------------------------------', { align: 'center' });
+              doc.moveDown();
+          }
+      });
+
+      doc.moveDown();
+      doc.moveDown();
+      doc.fontSize(10).text('Este documento es generado automáticamente y no requiere firma manual.', { align: 'center' });
+      doc.text('Universidad de Medellín - Todos los derechos reservados', { align: 'center' });
+
+      doc.end();
+  } catch (error) {
+      console.error('Error en generarPDF:', error);
+      res.status(500).json({ 
+          ok: false,
+          message: 'Error interno del servidor al generar el PDF' 
+      });
+  }
+};
 
 export const UserController = {
     UserRegister,
@@ -186,6 +323,8 @@ export const UserController = {
     logout,
     checkAuth,
     getAllEvents,
+    generarCertificado,
+    generarPDF,
     //googleRedirect: authUrl
     //authUrl,
     //googleRedirect,

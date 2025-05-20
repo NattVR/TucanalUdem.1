@@ -37,6 +37,36 @@ const searchUser = async (type_id, id ,password) => {
     }
 }
 
+//Consultas a la base de datos para obtener los estudios realizados y en progreso	
+
+const obtenerEstudiosRealizados = async (tipo_documento, numero_documento) => {
+    try {
+        const query = `
+            SELECT * FROM estudios_realizados 
+            WHERE tipo_documento = $1 AND numero_documento = $2`;
+        const values = [tipo_documento, numero_documento];
+        const result = await pool.query(query, values);
+        return result.rows;
+    } catch (error) {
+        console.error('Error obteniendo estudios realizados:', error);
+        throw error;
+    }
+};
+
+const obtenerEstudiosEnProgreso = async (tipo_documento, numero_documento) => {
+    try {
+        const query = `
+            SELECT * FROM estudios_en_progreso 
+            WHERE tipo_documento = $1 AND numero_documento = $2`;
+        const values = [tipo_documento, numero_documento];
+        const result = await pool.query(query, values);
+        return result.rows;
+    } catch (error) {
+        console.error('Error obteniendo estudios en progreso:', error);
+        throw error;
+    }
+};
+
 export const UserModel = {
-    createUser, searchUser
+    createUser, searchUser, obtenerEstudiosRealizados, obtenerEstudiosEnProgreso
 }

@@ -8,5 +8,9 @@ router.post('/login', UserController.login);
 router.get('/checkAuth', UserController.checkAuth);
 router.post('/getEvents', UserController.getAllEvents);
 router.post('/createEvent', UserController.createEvent);
-router.get('/logout', UserController.logout);// post
+router.post('/logout', UserController.logout);// post
+//NUEVOS 
+router.get('/certificado/:tipo', UserController.generarCertificado);
+router.get('/certificado-pdf/:tipo', UserController.generarPDF);
+
 export default router; 

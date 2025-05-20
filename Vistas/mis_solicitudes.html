@@ -5,138 +5,256 @@
   <title>Contáctanos</title>
   <style>
      
-    main {
-      display: flex;
-      margin-top: 60px;
-    }
- 
-    .side_left {
-      flex: 1;
-      margin-left: 100px;
-    }
+main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin: 60px 100px 40px;
+  font-family: 'Segoe UI', Tahoma,Verdana, sans-serif;
+}
 
-    .side_right {
-      flex: 1;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      margin-right: 100px;  
-      margin-bottom: 20px;
-    }
 
-    .cards {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      color: #990000;
-    }
+.side_left, .side_right {
+  flex: 1;
+  min-width: 300px;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
 
-    .card {
-      background-color: #f9f9f9;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  
-    }
+.side_left {
+  margin-left: 0;
+}
 
-    p {
-      margin-bottom: 20px;
-      color: #333;
-    }
+.side_right {
+  margin-right: 0;
+}
 
-    .form-container {
-      max-width: 450px;      
-    }
+h1 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: #990000;
+}
 
-    input, select, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
+p {
+  color: #444;
+  margin-bottom: 20px;
+}
 
-    button {
-      background-color: #990000;
-      border-radius: 5px;
-      color: white;
-      padding: 10px 25px;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.form-container {
+  max-width: 100%;
+}
 
-    button:hover {
-      background-color: #333;
-    }
+select, input, textarea {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
 
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    
+select:focus, input:focus, textarea:focus {
+  border-color: #990000;
+  outline: none;
+}
+
+button {
+  background-color: #990000;
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #660000;
+}
+
+button.secondary {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+button.secondary:hover {
+  background-color: #ccc;
+}
+
+
+.certificado {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #fdfdfd;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.hidden {
+  display: none;
+}
+
+.acciones {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+}
   </style>
 </head>
 <body>
 
     <div id="header"></div>
 
-    <main>
-
+<main>
       <div class="side_left">
-        <h1>Solicitudes</h1>
-        <p> Completa el formulario si quieres solicitar un docuemnto o certificado </p>
+        <h1>Solicitar Certificado</h1>
+        <p>Selecciona el tipo de certificado que necesitas</p>
 
         <div class="form-container">
-
-            <form>
-                <input type="text" name="nombre" placeholder="Tu nombre" required>
-                <input type="text" name="apellido" placeholder="Tu apellido" required>
-                <input type="text" name="id" placeholder="Número de docuento" required>
-                <input type="email" name="email" placeholder="Tu correo electrónico" required>
-                <select name="certificado" required>
-                    <option value="" disabled selected>Selecciona el certificado</option>
-                    <option>Estudios realizados</option>
-                    <option>Matriculado</option>
-                    <option>Calificaciones de estdudios no concluidos</option>
-                </select>
-                <textarea name="mensaje" placeholder="Tu mensaje" required></textarea>
-                <button type="submit">Enviar</button>
-            </form>
-
+          <select id="tipoCertificado" required>
+            <option value="" disabled selected>Selecciona el certificado</option>
+            <option value="estudios_realizados">Estudios realizados</option>
+            <option value="estudios_en_progreso">Calificaciones de estudios no concluidos</option>
+          </select>
+          <button id="btnGenerar">Generar Certificado</button>
+          
+          <div id="certificadoContainer" class="certificado hidden">
+            <h2 id="certificadoTitulo"></h2>
+            <div id="certificadoContenido"></div>
+            <div class="acciones">
+              <button id="btnDescargarPDF">Descargar PDF</button>
+              <button id="btnImprimir" class="secondary">Imprimir</button>
+            </div>
+          </div>
         </div>
       </div>
       
-        <div class=" side_right">
+      <div class="side_right">
+        <h1>Historial de Solicitudes</h1>
+        <p>Revisa tus certificados generados anteriormente</p>
 
-            <h1>Mis Solicitudes</h1>
-            <p> Aquí puedes ver el estado de tus solicitudes </p>
-
-            <div class="cards">
-              
-                <div class="card">
-                    <h3>Solicitud 1</h3>
-                    <p>Estado: En proceso</p>
-                    <button>Ver detalles</button>
-                </div>
-                <div class="card">
-                    <h3>Solicitud 2</h3>
-                    <p>Estado: Completada</p>
-                    <button>Ver detalles</button>
-                </div>
-                <div class="card">
-                    <h3>Solicitud 3</h3>
-                    <p>Estado: Rechazada</p>
-                    <button>Ver detalles</button>
-                </div>
-
-            </div>
-
+        <div id="historialSolicitudes">
+          <p>Cargando historial...</p>
         </div>
-        
+      </div>
     </main>
  
-    </body>
-    <script src="load_header.js"></script>
-    </html>
+</body>
+<script src="load_header.js"></script>
+<script>
+
+  document.getElementById('btnGenerar').addEventListener('click', generarCertificado);
+  document.getElementById('btnDescargarPDF').addEventListener('click', descargarPDF);
+  document.getElementById('btnImprimir').addEventListener('click', imprimirCertificado);
+
+  async function generarCertificado() {
+        const tipo = document.getElementById('tipoCertificado').value;
+        if (!tipo) {
+          alert('Por favor selecciona un tipo de certificado');
+          return;
+        }
+        
+        try {
+          const btnGenerar = document.getElementById('btnGenerar');
+          btnGenerar.disabled = true;
+          btnGenerar.textContent = 'Generando...';
+          
+          const response = await fetch(`http://localhost:5000/tu_canal_udem/certificado/${tipo}`, {
+            method: 'GET',
+            credentials: 'include' 
+          });
+          
+          if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || 'Error al generar certificado');
+          }
+          
+          const { data, tipo: tipoCert } = await response.json();
+          mostrarCertificado(data, tipoCert);
+          
+        } catch (error) {
+          console.error('Error:', error);
+          alert(`Error: ${error.message}`);
+        } finally {
+          const btnGenerar = document.getElementById('btnGenerar');
+          btnGenerar.disabled = false;
+          btnGenerar.textContent = 'Generar Certificado';
+        }
+      }
+      
+      function mostrarCertificado(data, tipo) {
+        const container = document.getElementById('certificadoContainer');
+        const titulo = document.getElementById('certificadoTitulo');
+        const contenido = document.getElementById('certificadoContenido');
+        
+        container.classList.remove('hidden');
+        
+        if (tipo === 'estudios_realizados') {
+          titulo.textContent = 'Certificado de Estudios Realizados';
+          contenido.innerHTML = data.map(estudio => `
+            <div class="estudio">
+              <h3>${estudio.tipo_estudio} en ${estudio.programa}</h3>
+              <p><strong>Facultad:</strong> ${estudio.facultad || 'No especificado'}</p>
+              <p><strong>Año de graduación:</strong> ${estudio.año_graduacion}</p>
+              <p><strong>Promedio:</strong> ${estudio.promedio || 'No disponible'}</p>
+              ${estudio.acta_grado ? `<p><strong>Acta de grado:</strong> ${estudio.acta_grado}</p>` : ''}
+            </div>
+          `).join('');
+        } else {
+          titulo.textContent = 'Certificado de Estudios en Progreso';
+          contenido.innerHTML = data.map(estudio => `
+            <div class="estudio">
+              <h3>${estudio.programa}</h3>
+              <p><strong>Facultad:</strong> ${estudio.facultad || 'No especificado'}</p>
+              <p><strong>Semestre actual:</strong> ${estudio.semestre_actual}</p>
+              <p><strong>Promedio:</strong> ${estudio.promedio || 'No disponible'}</p>
+              <p><strong>Créditos aprobados:</strong> ${estudio.creditos_aprobados} de ${estudio.creditos_total}</p>
+              ${estudio.fecha_inicio ? `<p><strong>Fecha inicio:</strong> ${new Date(estudio.fecha_inicio).toLocaleDateString()}</p>` : ''}
+              ${estudio.fecha_estimada_fin ? `<p><strong>Fecha estimada fin:</strong> ${new Date(estudio.fecha_estimada_fin).toLocaleDateString()}</p>` : ''}
+            </div>
+          `).join('');
+        }
+        
+        container.scrollIntoView({ behavior: 'smooth' });
+      }
+      
+      function descargarPDF() {
+        const tipo = document.getElementById('tipoCertificado').value;
+        if (tipo) {
+          descargarCertificado(tipo);
+        } else {
+          alert('Primero genera un certificado');
+        }
+      }
+      
+      function imprimirCertificado() {
+        window.print();
+      }
+      
+      window.verCertificado = async (tipo) => {
+        try {
+          const response = await fetch(`http://localhost:5000/tu_canal_udem/certificado/${tipo}`);
+          
+          if (!response.ok) {
+            throw new Error('Error al cargar certificado');
+          }
+          
+          const { data } = await response.json();
+          mostrarCertificado(data, tipo);
+          
+        } catch (error) {
+          console.error('Error:', error);
+          alert(`Error al ver certificado: ${error.message}`);
+        }
+      };
+      
+      window.descargarCertificado = (tipo) => {
+        window.open(`http://localhost:5000/tu_canal_udem/certificado-pdf/${tipo}`, '_blank');
+      };
+
+
+</script>
+</html>

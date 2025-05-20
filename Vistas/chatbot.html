@@ -7,13 +7,16 @@
 
 .main-container {
   display: flex;
-  align-items: flex-start;
-  margin-left: 100px;
-  margin-top: 20px;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Tahoma,  Verdana, sans-serif;
 }
 
 .chatbot-container {
   background-color: #ffffff;
+  width: 100%;
   width: 500px;
   height: 550px;
   border-radius: 10px;
@@ -27,36 +30,39 @@
   background-color: #900;
   color: white;
   text-align: center;
+  padding: 15px;
   border-radius: 10px 10px 0 0;
 }
 
 .chatbot {
   list-style-type: none;
-  padding: 10px;
+  padding: 15px;
   overflow-y: auto;
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
+
 .chatbot li {
-  font-size: 20px;
-  margin-bottom: 20px;
-  padding: 10px;
-  border-radius: 10px;
+  font-size: 1rem;
+      padding: 12px 16px;
+      border-radius: 10px;
+      max-width: 75%;
+      line-height: 1.4;
 }
 
 .chatbot li.bot {
-  max-width: 300px;
-  background-color: #f0f0f0;
-  text-align: left;
+  background-color: #f1f1f1;
+  align-self: flex-start;
 }
 
 .chatbot li.user {
-  max-width: 100px;
-  background-color: rgb(138, 219, 213);
-  color: white;
-  align-self: flex-end;
-  text-align: right;
-  margin-left: auto;
+  background-color: #00a3a3;
+      color: white;
+      align-self: flex-end;
+      text-align: right;
 }
 
 .chat-input {
@@ -69,6 +75,7 @@
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  gap: 10px;
 }
 
 .chat-input button {
@@ -82,23 +89,29 @@
 }
 
 .cards {
-  margin-left: 100px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 10px;
   display: flex;
-  flex-direction: row;
-  gap: 15px;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
   justify-content: center;
+  align-items: center;
+  max-width: 960px;
 }
 
 .cards img {
-  width: 300px;
-  height: 550px;
-  border-radius: 10px;
-  object-fit: cover;
+  width: 280px;
+      height: 550px;
+      border-radius: 10px;
+      object-fit: cover;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.bot-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;        
+  object-fit: cover;        
+  display: block;
+  margin: 0 auto;             
 }
 
 </style>
@@ -115,6 +128,7 @@
       </header>
 
       <ul class="chatbot" id="chatbot">
+        <img class="bot-avatar" src="./imagenes/tuni.png" alt="Bot Avatar">
         <li class="bot" id="bot-message">¡Hola! Estoy aquí para ayudarte. ¿En qué puedo asistirte hoy? <br><br> 
           1. Información de Pregrado y Posgrado<br>
           2. Información de Idiomas <br>
