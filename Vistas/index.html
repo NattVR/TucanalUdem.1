@@ -319,16 +319,16 @@
 
                 <div class="card">
                     <img src="./imagenes/solicitudes.jpg" alt="Seguimiento">
-                    <h3>Mis Solicitudes</h3>
-                    <p>Permite a los usuarios rastrear el estado de sus solicitudes y recibir notificaciones sobre actualizaciones en sus procesos.</p>
-                    <button onclick="window.location.href='./mis_solicitudes.html'">Ver seguimiento</button>
+                    <h3>Mis Documentos</h3>
+                    <p>Permite a los usuarios solicitar y recibir de manera automatica documentos que requieran.</p>
+                    <button id="btndocs">Ver Mis Documentos</button>
                 </div>
 
                 <div class="card">
                     <img src="./imagenes/reserva.jpg" alt="Gestión">
                     <h3>Reserva de Espacios</h3>
                     <p>Facilita la reserva de espacios tanto para estudiantes como para profesores, optimizando la utilización de recursos universitarios.</p>
-                    <button onclick="window.location.href='./reserva_espacios.html'">Reserva ahora</button>
+                    <button id="btnreserva">Reserva ahora</button>
                 </div>
             </div>
         </section>
@@ -395,5 +395,36 @@
         <p>© 2025 Tu Canal UdeM. Todos los derechos reservados.</p>
     </footer>
     <script src="load_header.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", async function () {
+    try {
+      const response = await fetch('http://localhost:5000/tu_canal_udem/checkAuth', {
+        method: 'GET',
+        credentials: 'include', 
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const data = await response.json();
+      if (data.loggedIn) {
+        
+        const btnreserva = document.getElementById("btnreserva");
+        if (btnreserva) {
+          btnreserva.addEventListener('click', function() {
+            window.location.href = './reserva_espacios.html';
+          })};
+
+        const btndocs = document.getElementById("btndocs");
+        if (btndocs) {
+          btndocs.addEventListener('click', function() {
+            window.location.href = './mis_solicitudes.html';
+          });
+        }}
+        
+    } catch (error) {
+        console.error('Error:', error);
+    }});
+
+    </script>
 </body>
 </html>
