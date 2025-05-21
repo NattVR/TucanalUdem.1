@@ -316,6 +316,88 @@ const generarPDF = async (req, res) => {
   }
 };
 
+
+// Controllers Reserva
+
+const reservarEspacio = async (req, res) => {
+    if (!req.session.user) {
+        return res.status(401).json({ message: 'No autorizado' });
+    }
+
+    const { id_type,id } = req.session.user;
+    const { espacio, fecha, hora } = req.body;
+    console.log(req.body);
+    console.log('id_type',id_type); 
+    console.log('id',id);
+    if (!espacio || !fecha || !hora) {
+        return res.status(400).json({ message: 'Todos los campos son obligatorios' });
+    }
+
+    /*const reservasRealizadas = await UserModel.reservaExiste(id_type, id, fecha, hora);
+    if (reservasRealizadas) {
+        return res.status(409).json({ message: 'Ya tienes una reserva en esa fecha y hora' });
+    }*/
+
+    const reserva = await UserModel.reservarEspacio(id_type, id, espacio, fecha, hora);
+    if (reserva) {
+        return res.status(200).json({ message: 'Reserva realizada con éxito'});
+    }
+    return res.status(500).json({ message: 'Error en la reserva ya tienes una reserva a esa hora'});
+}
+
+const allReservas = async (req, res) => {
+    if (!req.session.user) {
+        return res.status(401).json({ message: 'No autorizado' });
+    }
+
+    const { id_type,id } = req.session.user;
+    console.log('id_type',id_type); 
+    console.log('id',id);
+
+    const reservas = await UserModel.misReservas(id_type, id);
+    if (reservas.length === 0) {
+        return res.status(404).json({ message: 'No se encontraron reservas' });
+    }
+    res.status(200).json(reservas);
+}
+ 
+const deleteReserva = async (req, res) => {
+    if (!req.session.user) {
+        return res.status(401).json({ message: 'No autorizado' });
+    }
+
+    const { id_type,id } = req.session.user;
+    console.log('id_type',id_type); 
+    console.log('id',id);
+    const { id: reservaId } = req.params; // Este es el ID de la reserva
+    console.log('Reserva ID:', reservaId);
+    
+    const reservaEliminada = await UserModel.deleteReserva(id_type, id , reservaId);
+    if (reservaEliminada) {
+        return res.status(500).json({ message: 'Error al eliminar la reserva' });
+    }
+     return res.status(200).json({ message: 'Reserva eliminada con éxito' });
+}
+
+const updateReserva = async (req, res) => {
+    if (!req.session.user) {
+        return res.status(401).json({ message: 'No autorizado' });
+    }
+
+    const { id_type,id } = req.session.user;
+    console.log('id_type',id_type); 
+    console.log('id',id);
+    const { id: reservaId } = req.params; // Este es el ID de la reserva
+    const { fecha, hora } = req.body;
+    console.log('Reserva ID:', hora);
+    console.log('Reserva ID:', fecha);
+    const reservaActualizada = await UserModel.updateReserva(id_type, id , reservaId, fecha, hora);
+    if (reservaActualizada) {
+        return res.status(200).json({ message: 'Reserva actualizada con éxito' });
+    }
+    return res.status(500).json({ message: 'Error al actualizar la reserva' });
+}
+
 export const UserController = {
     UserRegister,
     login,
@@ -325,6 +407,10 @@ export const UserController = {
     getAllEvents,
     generarCertificado,
     generarPDF,
+    reservarEspacio,
+    allReservas,
+    deleteReserva,
+    updateReserva
     //googleRedirect: authUrl
     //authUrl,
     //googleRedirect,

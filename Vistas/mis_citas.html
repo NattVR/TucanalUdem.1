@@ -1,119 +1,244 @@
 <!DOCTYPE html>
 <head>
+    
   <meta charset="UTF-8">
+  <title>Mis Citas - Tu Canal UdeM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-
-    .side_left, .side_right {
-        margin-top: 50px;
-        margin-left: 15px;
-        margin-right: 15px;
-        width: 48%;
-        padding: 20px;
-        background-color: rgba(255, 255, 255, 0);
-        border-radius: 8px;
-        
+    body {
+      /* Cambio de tipografía a Poppins */
+      font-family: 'Poppins', sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      margin: 0;
+      padding: 0;
     }
 
+    .main-container {
+      max-width: 1400px;
+      margin: 40px auto;
+      padding: 0 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    /* Cambiamos la proporción de las columnas para hacer el calendario más grande */
     .side_left {
-        float: left;
-        
+      flex: 2; 
+      min-width: 300px;
+      padding: 30px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: center;
+      background-color: transparent;
+      box-shadow: none;
+      border-radius: 0;
     }
 
     .side_right {
-        float: right;
-        
+      flex: 1; 
+      min-width: 300px;
+      padding: 30px;
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: center;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      color: #990000;
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      text-align: center;
     }
 
     p {
-    margin-bottom: 20px;
-    font-size: 16px;
+      margin-bottom: 20px;
+      font-size: 16px;
+      color: #555;
+      line-height: 1.5;
+      text-align: center;
     }
 
     #calendar-container {
-        margin-left: 100px;
-        text-align: center;
+      width: 100%;
+      max-width: 1000px; 
     }
 
+    #calendar-container iframe {
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      height: 700px; 
+      background-color: #fff;
+    }
     
     .form-container {
-        margin-left: 150px;
-        background-color: #fff;
-        padding: 30px;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        width: 400px;
-        text-align: center;
+      background-color: #fff;
+      padding: 25px; 
+      border-radius: 12px;
+      width: 100%;
+      max-width: 400px;
     }
 
     .form-container h1 {
-        color: #333;
-        margin-bottom: 20px;
+      color: #990000;
+      margin-bottom: 10px;
+      font-size: 1.7rem;
     }
     
-
     #footer {
-    clear: both;
-    text-align: center;
-    margin-top: 50px;
-    padding: 20px;
-    font-size: 14px;
-    color: #777;}
-
-    .form-container h1 {
-        color: #333;
-        margin-bottom: 20px;
+      clear: both;
+      text-align: center;
+      margin-top: 50px;
+      padding: 20px;
+      font-size: 14px;
+      color: #777;
     }
 
     .form-container label {
-        font-size: 16px;
-        color: #555;
-        display: block;
-        margin-bottom: 8px;
-        text-align: left;
+      font-size: 15px; 
+      color: #555;
+      display: block;
+      margin-bottom: 6px; 
+      text-align: left;
+      font-weight: 500;
     }
 
-    .form-container input, .form-container textarea {
-        width: 100%;
-        padding: 10px;
-        margin: 8px 0;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        font-size: 16px;
+    /* Estilos unificados para todos los campos del formulario */
+    .form-container input, 
+    .form-container textarea,
+    .form-container select {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 15px; 
+      margin: 6px 0 14px; 
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 15px; 
+      font-family: 'Poppins', sans-serif;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    /* Aseguramos que los selects tengan el mismo ancho efectivo */
+    .form-container select {
+      width: 100%;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 15px center;
+      background-size: 15px;
+      padding-right: 40px;
+    }
+
+    .form-container input:focus, 
+    .form-container textarea:focus,
+    .form-container select:focus {
+      outline: none;
+      border-color: #990000;
+      box-shadow: 0 0 0 2px rgba(153, 0, 0, 0.1);
     }
 
     .form-container button {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 12px 20px;
-        font-size: 16px;
-        cursor: pointer;
-        border-radius: 5px;
-        margin-top: 20px;
-        width: 100%;
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      background-color: #ffc300;
+      color: rgb(48, 48, 48);
+      border: none;
+      padding: 12px 20px; 
+      font-size: 15px; 
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 8px;
+      margin-top: 15px; 
+      transition: background-color 0.3s, transform 0.2s;
     }
 
     .form-container button:hover {
-        background-color: #0056b3;
+      background-color: #e0a800;
+      transform: translateY(-2px);
     }
-
 
     .form-container .info {
-        margin-top: 15px;
-        font-size: 14px;
-        color: #777;
+      margin-top: 15px; 
+      font-size: 13px; 
+      color: #777;
+      line-height: 1.5;
+      text-align: center;
+      padding: 8px; 
+      background-color: #f9f9f9;
+      border-radius: 8px;
     }
-    .form-container select {
-        width: 105%;
-        padding: 10px;
-        margin: 8px 0;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        font-size: 16px;
-    }
+
     .form-container textarea {
-        height: 100px;
-        resize: none;
+      height: 100px; 
+      resize: none;
+    }
+
+    /* Contenedor para el formulario con ancho fijo */
+    #CreateEvent {
+      width: 100%;
+    }
+
+    /* Estilos responsivos */
+    @media (max-width: 1200px) {
+      .side_left {
+        flex: 3;
+      }
+      
+      .side_right {
+        flex: 2;
+      }
+      
+      #calendar-container iframe {
+        height: 650px;
+      }
+    }
+
+    @media (max-width: 992px) {
+      .main-container {
+        flex-direction: column;
+      }
+      
+      .side_left, .side_right {
+        width: 100%;
+      }
+      
+      .form-container, #calendar-container {
+        max-width: 100%;
+      }
+      
+      #calendar-container iframe {
+        height: 600px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .main-container {
+        padding: 0 15px;
+        margin: 20px auto;
+      }
+      
+      .side_left, .side_right {
+        padding: 20px;
+      }
+      
+      #calendar-container iframe {
+        height: 500px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      #calendar-container iframe {
+        height: 400px;
+      }
     }
   </style>
 </head>
@@ -121,67 +246,69 @@
 <body>
 
     <div id="header"></div>
+    <div class="main-container">
+        <div class="side_left">
+            <div id="calendar-container">
+                <h1>Calendario de Citas</h1>
+                <p>Consulta tus citas programadas a través de nuestro calendario.</p>
+                <iframe src="https://calendar.google.com/calendar/embed?src=udemedellin.soy%40gmail.com&ctz=America%2FBogota" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+            </div>
+        </div>
 
-    <div class="side_left">
-        <div id="calendar-container">
-            <h1>Calendario de Citas</h1>
-            <p>Consulta tus citas programadas a través de nuestro calendario.</p>
-            <iframe src="https://calendar.google.com/calendar/embed?src=udemedellin.soy%40gmail.com&ctz=America%2FBogota" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+        <div class="side_right">
+            <div id="form-container" class="form-container">
+                <h1>Solicitud de Cita</h1>
+                <p>Agenda con un asesor.</p>
+                <form id="CreateEvent" method="POST">
+
+                    <label>Nombre de la Reunión</label>
+                    <select name="name">
+                        <option value="">Ponle un título a tu reunión</option>
+                        <option value="Información Académica">Información Académica</option>
+                        <option value="Becas y Apoyos Financieros">Becas y Apoyos Financieros</option>
+                        <option value="Facturación UdeM">Facturación UdeM</option>
+                        <option value="Asesoría Académica">Asesoría Académica</option>
+                        <option value="Trámites y Asesoría">Trámites y Asesoría</option>
+                        <option value="Otros">Otros</option>
+                    </select>
+                
+                    <label >Descripción</label>
+                    <textarea id="description" name="description" placeholder="Describenos tu duda, problema o motivo de la reunion" required></textarea>
+
+                    <label>Fecha</label>
+                    <input type="date" id="date" name="date" required>
+
+                    <label for="time">Hora</label>
+                    <select id="time" name="time" required>
+                    <option value="">Seleccione un horario</option>
+                    <option value="08:00:00">08:00</option>
+                    <option value="08:25:00">08:25</option>
+                    <option value="08:50:00">08:50</option>
+                    <option value="09:15:00">09:15</option>
+                    <option value="09:40:00">09:40</option>
+                    <option value="10:05:00">10:05</option>
+                    <option value="10:30:00">10:30</option>
+                    <option value="10:55:00">10:55</option>
+                    <option value="11:20:00">11:20</option>
+                    <option value="11:45:00">11:45</option>
+                    <option value="14:00:00">14:00</option>
+                    <option value="14:25:00">14:25</option>
+                    <option value="14:50:00">14:50</option>
+                    <option value="15:15:00">15:15</option>
+                    <option value="15:40:00">15:40</option>
+                    <option value="16:05:00">16:05</option>
+                    <option value="16:30:00">16:30</option>
+                    <option value="16:55:00">16:55</option>
+                    <option value="17:20:00">17:20</option>
+                    <option value="17:55:00">17:55</option>
+                    </select>
+
+                    <button type="submit">Agendar</button>
+
+                    <p class="info">Recibirás un correo de confirmación una vez que tu cita sea agendada con el respectivo link para la cita virtual.</p>
+                </form>
         </div>
     </div>
-
-    <div class="side_right">
-        <div id="form-container" class="form-container">
-            <h1>Solicitud de Cita</h1>
-            <p>Agenda con un asesor.</p>
-            <form id="CreateEvent" method="POST">
-
-                <label>Nombre de la Reunión</label>
-                <select name="name">
-                    <option value="">Ponle un título a tu reunión</option>
-                    <option value="Información Académica">Información Académica</option>
-                    <option value="Becas y Apoyos Financieros">Becas y Apoyos Financieros</option>
-                    <option value="Facturación UdeM">Facturación UdeM</option>
-                    <option value="Asesoría Académica">Asesoría Académica</option>
-                    <option value="Trámites y Asesoría">Trámites y Asesoría</option>
-                    <option value="Otros">Otros</option>
-                  </select>
-            
-                <label >Descripción</label>
-                <textarea id="description" name="description" placeholder="Describenos tu duda, problema o motivo de la reunion" required></textarea>
-
-                <label>Fecha</label>
-                <input type="date" id="date" name="date" required>
-
-                <label for="time">Hora</label>
-                <select id="time" name="time" required>
-                  <option value="">Seleccione un horario</option>
-                  <option value="08:00:00">08:00</option>
-                  <option value="08:25:00">08:25</option>
-                  <option value="08:50:00">08:50</option>
-                  <option value="09:15:00">09:15</option>
-                  <option value="09:40:00">09:40</option>
-                  <option value="10:05:00">10:05</option>
-                  <option value="10:30:00">10:30</option>
-                  <option value="10:55:00">10:55</option>
-                  <option value="11:20:00">11:20</option>
-                  <option value="11:45:00">11:45</option>
-                  <option value="14:00:00">14:00</option>
-                  <option value="14:25:00">14:25</option>
-                  <option value="14:50:00">14:50</option>
-                  <option value="15:15:00">15:15</option>
-                  <option value="15:40:00">15:40</option>
-                  <option value="16:05:00">16:05</option>
-                  <option value="16:30:00">16:30</option>
-                  <option value="16:55:00">16:55</option>
-                  <option value="17:20:00">17:20</option>
-                  <option value="17:55:00">17:55</option>
-                </select>
-
-                <button type="submit">Agendar</button>
-
-                <p class="info">Recibirás un correo de confirmación una vez que tu cita sea agendada con el respectivo link para la cita virtual.</p>
-            </form>
     </div>
     
     <div id="footer">

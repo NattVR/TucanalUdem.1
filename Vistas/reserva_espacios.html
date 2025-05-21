@@ -4,13 +4,583 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
-  </style>
+
+
+body {
+    font-family: 'Segoe UI', Tahoma,  Verdana, sans-serif;
+    color: #333;
+    text-align: center
+  }
+
+header h1 {
+    margin: 0;
+    font-size: 2em;
+  }
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+  }
+
+.main-content {
+  display: grid;
+  grid-template-columns: 65% 35%;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.left-column {
+  grid-column: 1;
+}
+
+.right-column {
+  grid-column: 2;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 20px;
+
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.reservas-hechas {
+  overflow-y: auto;
+  position: sticky;
+  top: 5px;
+}
+
+.section-title {
+  font-size: 1.5em;
+  color: #222;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  padding: 10px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card img {
+  border-radius: 8px;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 15px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-content h3 {
+  margin: 0 0 10px;
+  font-size: 1.2em;
+  color: #000;
+}
+
+.card-content p {
+  flex-grow: 1;
+  font-size: 0.95em;
+  color: #666;
+}
+
+.form-group {
+  margin-top: 10px;
+}
+
+.form-group input,
+.form-group select {
+
+  padding: 7px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-group input[type="date"] {
+  width: 90%;
+}
+
+.form-group select {
+  width: 90%;
+}
+
+.form-group button {
+  background-color: #ffc300;
+  border: none;
+  padding: 10px;
+  margin-top: 10px;
+  width: 90%;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.form-group button:hover {
+  background-color: #e0a800;
+}
+
+.reservas-hechas {
+  background: white;
+  padding: 20px;
+  margin-top: 40px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.reserva-item {
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+}
+
+.reserva-item:last-child {
+  border-bottom: none;
+}
+
+/* Puedes poner esto en tu archivo style.css o en una etiqueta <style> */
+.reserva-item {
+background-color: #f5f7fa;
+border-left: 5px solid #900;
+padding: 1rem;
+margin-bottom: 1rem;
+border-radius: 8px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+transition: transform 0.2s;
+}
+
+.reserva-item:hover {
+transform: scale(1.02);
+}
+
+.reserva-item strong {
+color: #900;
+font-size: 1.2rem;
+}
+
+button.btn-eliminar, button.btn-actualizar {
+margin-top: 0.5rem;
+margin-right: 0.5rem;
+padding: 0.4rem 0.8rem;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-weight: bold;
+}
+
+.btn-eliminar {
+background-color: #900;
+color: white;
+}
+
+.btn-eliminar:hover {
+background-color: rgba(104, 1, 1, 0.966);
+}
+
+.btn-actualizar {
+background-color: #457b9d;
+color: white;
+}
+
+.btn-actualizar:hover {
+background-color: #35617d;
+}
+
+
+/* Pagina emergente*/
+.modal {
+display: none;
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+background: #ffffff;
+padding: 30px 25px;
+border-radius: 12px;
+box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+z-index: 1000;
+width: 320px;
+font-family: 'Segoe UI', sans-serif;
+}
+
+.modal-titulo {
+margin-bottom: 20px;
+color: #333;
+font-size: 20px;
+text-align: center;
+}
+
+.modal-label {
+display: block;
+margin-bottom: 8px;
+color: #444;
+font-weight: 500;
+}
+
+.modal-input {
+width: 100%;
+padding: 8px 10px;
+margin-bottom: 16px;
+border: 1px solid #ccc;
+border-radius: 6px;
+font-size: 14px;
+}
+
+.modal-botones {
+display: flex;
+justify-content: space-between;
+}
+
+.btn-guardar {
+background-color:  #457b9d;
+color: white;
+border: none;
+padding: 8px 14px;
+border-radius: 6px;
+font-size: 14px;
+cursor: pointer;
+}
+
+.btn-cancelar {
+background-color:#900;
+color: white;
+border: none;
+padding: 8px 14px;
+border-radius: 6px;
+font-size: 14px;
+cursor: pointer;
+}
+
+
+</style>
 </head>
 <body>
-
-<body>
+  <div id="header"> </div>
     <header>
-        <div id="header"> </div>
+        <h1>Reservas UDEM</h1>
+        <p>Reserva tus espacios preferidos dentro del campus de la Universidad de Medellín</p>
+    <header>
+    
+      <div class="container">
+        <div class="main-content">
+          <div class="left-column">
+            <h2 class="section-title">Espacios Disponibles</h2>
+            <div class="cards">
+              <!-- Aquí van todas las cards existentes -->
+              <div class="card">
+                <img src="./imagenes/reserva.jpg" >
+                <div class="card-content">
+                  <form class="formsReserva" method="POST">
+                  <h3>Gimnasio</h3>
+                  <input type="hidden" name="espacio" value="Gimnasio">
+                  <p>Espacio recreativo y deportivo</p>
+                  <div class="form-group">
+                  
+                    <input name="fecha" class= "input" type="date" placeholder="Fecha">
+                    <select name="hora" required>
+                      <option value="">Selecciona una hora</option>
+                      <option value="06:00:00">06:00 AM</option>
+                      <option value="08:00:00">08:00 AM</option>
+                      <option value="10:00:00">10:00 AM</option>
+                      <option value="12:00:00">12:00 PM</option>
+                      <option value="14:00:00">02:00 PM</option>
+                      <option value="16:00:00">04:00 PM</option>
+                      <option value="18:00:00">06:00 PM</option>
+                      <option value="20:00:00">08:00 PM</option>
+                    </select>
+                    <button type="submit" >Reservar</button>
+                  </form>
+                  </div>
+                </div>
+              </div>  
+      
+              <div class="card">
+                <img src="./imagenes/canchacentral.jpeg" >
+                <div class="card-content">
+                  <form class="formsReserva" method="POST">
+                  <h3>Cancha de Fútbol Central</h3>
+                  <input type="hidden" name="espacio" value="Cancha de Fútbol Central">
+                  <p>Espacio recreativo y deportivo</p>
+                  <div class="form-group">
+                  
+                    <input name="fecha" class= "input" type="date" placeholder="Fecha">
+                    <select name="hora" required>
+                      <option value="">Selecciona una hora</option>
+                      <option value="06:00:00">06:00 AM</option>
+                      <option value="08:00:00">08:00 AM</option>
+                      <option value="10:00:00">10:00 AM</option>
+                      <option value="12:00:00">12:00 PM</option>
+                      <option value="14:00:00">02:00 PM</option>
+                      <option value="16:00:00">04:00 PM</option>
+                      <option value="18:00:00">06:00 PM</option>
+                      <option value="20:00:00">08:00 PM</option>
+                    </select>
+                    <button type="submit" >Reservar</button>
+                  </form>
+                  </div>
+                </div>
+              </div>  
+      
+              <div class="card">
+                <img src="./imagenes/piscina.jpeg" >
+                <div class="card-content">
+                  <form class="formsReserva" method="POST">
+                  <h3>Piscina</h3>
+                  <input type="hidden" name="espacio" value="Piscina">
+                  <p>Espacio recreativo y deportivo.</p>
+                  <div class="form-group">
+                  
+                    <input name="fecha" class= "input" type="date" placeholder="Fecha">
+                    <select name="hora" required>
+                      <option value="">Selecciona una hora</option>
+                      <option value="06:00:00">06:00 AM</option>
+                      <option value="08:00:00">08:00 AM</option>
+                      <option value="10:00:00">10:00 AM</option>
+                      <option value="12:00:00">12:00 PM</option>
+                      <option value="14:00:00">02:00 PM</option>
+                      <option value="16:00:00">04:00 PM</option>
+                      <option value="18:00:00">06:00 PM</option>
+                      <option value="20:00:00">08:00 PM</option>
+                    </select>
+                    <button type="submit" >Reservar</button>
+                  </form>
+                  </div>
+                </div>
+              </div>  
+              
+              <div class="card">
+                <img src="./imagenes/cacha.jpg" >
+                <div class="card-content">
+                  <form class="formsReserva" method="POST">
+                  <h3>Cancha sintética</h3>
+                  <input type="hidden" name="espacio" value="Cancha sintética">
+                  <p>Espacio recreativo y deportivo.</p>
+                  <div class="form-group">
+                  
+                    <input name="fecha" class= "input" type="date" placeholder="Fecha">
+                    <select name="hora" required>
+                      <option value="">Selecciona una hora</option>
+                      <option value="06:00:00">06:00 AM</option>
+                      <option value="08:00:00">08:00 AM</option>
+                      <option value="10:00:00">10:00 AM</option>
+                      <option value="12:00:00">12:00 PM</option>
+                      <option value="14:00:00">02:00 PM</option>
+                      <option value="16:00:00">04:00 PM</option>
+                      <option value="18:00:00">06:00 PM</option>
+                      <option value="20:00:00">08:00 PM</option>
+                    </select>
+                    <button type="submit" >Reservar</button>
+                  </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="right-column">
+            <div class="reservas-hechas">
+              <h2 class="section-title">Mis Reservas</h2>
+              <div id="lista-reservas"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+        
+           
+        <div id="modalEditar" class="modal">
+          <h3 class="modal-titulo">Editar reserva</h3>
+          <form id="formEditar">
+            <label for="nuevaFecha" class="modal-label">Fecha:</label>
+            <input type="date" id="nuevaFecha" name="fecha" class="modal-input" required>
+        
+            <label for="nuevaHora" class="modal-label">Hora:</label>
+            <select id="nuevaHora" name="hora" class="modal-input" required>
+              <option value="">Selecciona una hora</option>
+              <option value="06:00:00">06:00 AM</option>
+              <option value="08:00:00">08:00 AM</option>
+              <option value="10:00:00">10:00 AM</option>
+              <option value="12:00:00">12:00 PM</option>
+              <option value="14:00:00">02:00 PM</option>
+              <option value="16:00:00">04:00 PM</option>
+              <option value="18:00:00">06:00 PM</option>
+              <option value="20:00:00">08:00 PM</option>
+            </select>
+            <div class="modal-botones">
+              <button type="submit" class="btn-guardar">Guardar</button>
+              <button type="button" onclick="cerrarModal()" class="btn-cancelar">Cancelar</button>
+            </div>
+          </form>
+        </div>
+        
+
 </body>
 <script src="load_header.js"></script>
+<script>
+
+document.querySelectorAll('.formsReserva').forEach(form => {
+  form.addEventListener('submit', async function (e) {
+  const formData = new FormData(this);
+
+  const datos = {
+    espacio: formData.get('espacio'),
+    fecha: formData.get('fecha'),
+    hora: formData.get('hora'),
+  };
+  console.log(datos);
+
+  try {
+    const response = await fetch("http://localhost:5000/tu_canal_udem/reservas", {
+      method: 'POST',
+      credentials: 'include' ,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(datos)
+    });
+
+    if (response.ok) {
+      alert("Reserva realizada con éxito");
+      
+    } else {
+      alert("Error en la reservar");
+    }
+
+  } catch (error) {
+    alert('Error al reservar');
+    console.error(error);
+  }
+});
+});
+
+
+const contenedor= document.getElementById('lista-reservas');
+
+fetch('http://localhost:5000/tu_canal_udem/misReservas',{
+  method: 'GET',
+  credentials: 'include' 
+})
+.then(response => {
+    if (!response.ok) {
+      throw new Error(`Error HTTP: ${response.status}`);
+    }
+    return response.json();
+  })
+  .then(reservas => {
+    const contenedor = document.getElementById('lista-reservas');
+    contenedor.innerHTML = '';
+
+    reservas.forEach(r => {
+      const div = document.createElement('div');
+      div.classList.add('reserva-item');
+      div.innerHTML = `
+         <strong>${r.espacio}</strong><br>
+        Fecha: ${new Date(r.fecha).toLocaleDateString()} | Hora: ${r.hora.slice(0, 5)}<br>
+        <button class="btn-eliminar" data-id="${r.id}">Eliminar</button>
+        <button class="btn-actualizar" data-id="${r.id}">Actualizar</button>
+      `;
+      contenedor.appendChild(div);
+    });
+  })
+  .catch(error => {
+    console.error('Error cargando reservas:', error);
+  });
+
+
+  // Delegar eventos después de cargar las reservas
+contenedor.addEventListener('click', function (e) {
+  const id = e.target.dataset.id;
+
+  // Eliminar
+  if (e.target.classList.contains('btn-eliminar')) {
+    console.log(id);
+    if (confirm('¿Estás seguro de que deseas eliminar esta reserva?')) {
+      fetch(`http://localhost:5000/tu_canal_udem/deleteReserva/${id}`, {
+        method: 'DELETE',
+        credentials: 'include'
+      })
+      .then(res => {
+        if (!res.ok) throw new Error('Error al eliminar');
+        // Recargar la lista
+        location.reload();
+      })
+      .catch(err => console.error('Error eliminando reserva:', err));
+    }
+  }
+
+  // Actualizar
+  if (e.target.classList.contains('btn-actualizar')) {
+    const reserva =id;
+    console.log(reserva);
+    abrirModalEditar((nuevaReserva) => {
+      console.log(nuevaReserva);
+      
+      const nuevaHora = nuevaReserva.hora;
+      const nuevaFecha = nuevaReserva.fecha;
+
+    if (nuevaHora && nuevaFecha) {
+      fetch(`http://localhost:5000/tu_canal_udem/updateReserva/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify({ hora: nuevaHora, fecha: nuevaFecha })  
+    })
+      .then(res => {
+        if (!res.ok) throw new Error('Error al actualizar');
+        location.reload();
+      })
+      .catch(err => console.error('Error actualizando reserva:', err));
+    } else {
+      alert('Por favor, completa todos los campos.');
+    }
+  });
+  }
+});
+  
+
+
+function abrirModalEditar(callback) {
+  const modal = document.getElementById('modalEditar');
+  modal.style.display = 'block';
+
+  const form = document.getElementById('formEditar');
+
+  form.onsubmit = function (e) {
+    e.preventDefault();
+    const nuevaFecha = document.getElementById('nuevaFecha').value;
+    const nuevaHora = document.getElementById('nuevaHora').value;
+    modal.style.display = 'none';
+
+    callback({ fecha: nuevaFecha, hora: nuevaHora });
+  };
+}
+
+function cerrarModal() {
+  document.getElementById('modalEditar').style.display = 'none';
+}
+
+
+
+
+</script>
 </html>
