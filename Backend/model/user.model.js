@@ -125,7 +125,7 @@ const updateReserva = async (tipo_documento, numero_documento, id, fecha_reserva
 const reservaExiste = async (tipo_documento, numero_documento,  fecha_reserva, hora_reserva) => {
     try {
         const query = `SELECT * FROM reservas 
-            WHERE tipo_id = $1 AND numero_id = $2 AND  fecha = $4 AND hora= $5`;
+            WHERE tipo_id = $1 AND numero_id = $2 AND fecha = $3 AND hora= $4`;
         const values = [tipo_documento, numero_documento, fecha_reserva, hora_reserva];
         const result = await pool.query(query, values);
         return result.rows.length > 0;

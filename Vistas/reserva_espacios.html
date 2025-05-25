@@ -438,6 +438,7 @@ cursor: pointer;
 
 document.querySelectorAll('.formsReserva').forEach(form => {
   form.addEventListener('submit', async function (e) {
+  e.preventDefault();
   const formData = new FormData(this);
 
   const datos = {
@@ -446,6 +447,27 @@ document.querySelectorAll('.formsReserva').forEach(form => {
     hora: formData.get('hora'),
   };
   console.log(datos);
+
+  const hoy = new Date();
+  hoy.setHours(0, 0, 0, 0); 
+
+  const fechaSeleccionada = new Date(datos.fecha);
+
+  if (fechaSeleccionada < hoy) {
+    alert("La fecha no puede ser anterior a hoy");
+    return;
+  }
+
+
+  const fechaSeleccionada1= new Date(datos.fecha + 'T00:00:00');
+
+  // Ahora sí puedes usar getDay()
+  if (fechaSeleccionada1.getDay() === 0) {
+    console.log("Día:", fechaSeleccionada.getDay());
+    console.log("NO SE PUEDEEEEE");
+    alert('No se pueden hacer reservas los domingos.');
+    return;
+  }
 
   try {
     const response = await fetch("http://localhost:5000/tu_canal_udem/reservas", {
@@ -465,7 +487,7 @@ document.querySelectorAll('.formsReserva').forEach(form => {
     }
 
   } catch (error) {
-    alert('Error al reservar');
+    alert('Error'+ error)
     console.error(error);
   }
 });
@@ -532,6 +554,7 @@ contenedor.addEventListener('click', function (e) {
     console.log(reserva);
     abrirModalEditar((nuevaReserva) => {
       console.log(nuevaReserva);
+
       
       const nuevaHora = nuevaReserva.hora;
       const nuevaFecha = nuevaReserva.fecha;
@@ -569,6 +592,17 @@ function abrirModalEditar(callback) {
     e.preventDefault();
     const nuevaFecha = document.getElementById('nuevaFecha').value;
     const nuevaHora = document.getElementById('nuevaHora').value;
+    console.log(nuevaFecha)
+
+    const fechaSeleccionada = new Date(nuevaFecha + 'T00:00:00');
+
+    // Ahora sí puedes usar getDay()
+    if (fechaSeleccionada.getDay() === 0) {
+      console.log("Día:", fechaSeleccionada.getDay());
+      console.log("NO SE PUEDEEEEE");
+      alert('No se pueden hacer reservas los domingos.');
+      return;
+    }
     modal.style.display = 'none';
 
     callback({ fecha: nuevaFecha, hora: nuevaHora });

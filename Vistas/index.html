@@ -251,6 +251,52 @@
         color: #e2e2e2;
     }
 
+
+
+
+    .map {
+  padding: 40px 20px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.map h2 {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+}
+
+
+.map img {
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  max-width: 90%;
+  z-index: 1;
+  position: relative;
+}
+
+.map img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
     </style> 
 </head>
 
@@ -390,6 +436,14 @@
                 </div>   
             </div>
         </section>
+
+
+    <!-- esta seccion -->
+    <section class = "map">
+        <h2></h2>
+        <img src="./imagenes/mapa_udem.png">   
+    </section>
+
     </main>
     <footer>
         <p>© 2025 Tu Canal UdeM. Todos los derechos reservados.</p>
