@@ -4,8 +4,12 @@ import { google } from "googleapis";
 import moment from "moment-timezone";
 import { auth } from "googleapis/build/src/apis/abusiveexperiencereport/index.js";
 import path from 'path';
-import PDFDocument from 'pdfkit';
 
+import PDFDocument from 'pdfkit';
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const UserRegister = async (req, res) => {
     try {
@@ -255,17 +259,28 @@ const generarPDF = async (req, res) => {
               message: 'No se encontraron registros' 
           });
       }
-
-      const doc = new PDFDocument();
+//cambio
+      const doc = new PDFDocument({
+        size: 'A4',
+        margins: { top: 50, bottom: 50, left: 50, right: 50 }
+    });
       
       res.setHeader('Content-Type', 'application/pdf');
       res.setHeader('Content-Disposition', `attachment; filename=certificado_${tipo}_${id}.pdf`);
       
       doc.pipe(res);
+//logo
+      const logoPath = path.resolve(__dirname, '../../Vistas/imagenes/Logo_UdeMedellín.jpg');
+      doc.image(logoPath, {
+        fit: [150, 150],
+        align: 'center',
+        valign: 'top'
+    });
 
-      
-      doc.fontSize(20).text('Universidad de Medellín', { align: 'center' });
-      doc.fontSize(16).text(titulo, { align: 'center' });
+      doc.moveDown(2);
+
+      doc.fontSize(20).font('Helvetica-Bold').text('Universidad de Medellín', { align: 'center' });
+      doc.fontSize(16).font('Helvetica-Bold').text(titulo, { align: 'center' });
       doc.moveDown();
 
       doc.fontSize(12).text(`Nombre: ${names}`, { align: 'left' });
@@ -275,35 +290,41 @@ const generarPDF = async (req, res) => {
       doc.moveDown();
 
       estudios.forEach((estudio, index) => {
-          if (tipo === 'estudios_realizados') {
-              doc.fontSize(14).text(`${estudio.tipo_estudio.toUpperCase()} EN ${estudio.programa.toUpperCase()}`);
-              doc.fontSize(12).text(`Facultad: ${estudio.facultad}`);
-              doc.text(`Año de graduación: ${estudio.año_graduacion}`);
-              doc.text(`Promedio: ${estudio.promedio || 'No disponible'}`);
-              if (estudio.acta_grado) {
-                  doc.text(`Acta de grado: ${estudio.acta_grado}`);
-              }
+        if (tipo === 'estudios_realizados') {
+            doc.fontSize(14).font('Helvetica-Bold')
+               .text(`${estudio.tipo_estudio.toUpperCase()} EN ${estudio.programa.toUpperCase()}`);
+            doc.fontSize(12).font('Helvetica')
+               .text(`Facultad: ${estudio.facultad}`)
+               .text(`Año de graduación: ${estudio.año_graduacion}`)
+               .text(`Promedio: ${estudio.promedio || 'No disponible'}`);
+            if (estudio.acta_grado) {
+                doc.text(`Acta de grado: ${estudio.acta_grado}`);
+            }
           } else {
-              doc.fontSize(14).text(`PROGRAMA: ${estudio.programa.toUpperCase()}`);
-              doc.fontSize(12).text(`Facultad: ${estudio.facultad}`);
-              doc.text(`Semestre actual: ${estudio.semestre_actual}`);
-              doc.text(`Promedio: ${estudio.promedio || 'No disponible'}`);
-              doc.text(`Créditos aprobados: ${estudio.creditos_aprobados} de ${estudio.creditos_total}`);
-              if (estudio.fecha_inicio && estudio.fecha_estimada_fin) {
-                  doc.text(`Periodo: ${estudio.fecha_inicio} a ${estudio.fecha_estimada_fin}`);
-              }
+            doc.fontSize(14).font('Helvetica-Bold')
+            .text(`PROGRAMA: ${estudio.programa.toUpperCase()}`);
+         doc.fontSize(12).font('Helvetica')
+            .text(`Facultad: ${estudio.facultad}`)
+            .text(`Semestre actual: ${estudio.semestre_actual}`)
+            .text(`Promedio: ${estudio.promedio || 'No disponible'}`)
+            .text(`Créditos aprobados: ${estudio.creditos_aprobados} de ${estudio.creditos_total}`);
+         if (estudio.fecha_inicio && estudio.fecha_estimada_fin) {
+             doc.text(`Periodo: ${estudio.fecha_inicio} a ${estudio.fecha_estimada_fin}`);
+         }
           }
           
           if (index < estudios.length - 1) {
-              doc.moveDown();
-              doc.text('--------------------------------------------------------------------------------', { align: 'center' });
-              doc.moveDown();
-          }
+            doc.moveDown();
+            doc.strokeColor('#cccccc').lineWidth(1)
+               .moveTo(50, doc.y)
+               .lineTo(550, doc.y)
+               .stroke();
+            doc.moveDown();
+        }
       });
 
-      doc.moveDown();
-      doc.moveDown();
-      doc.fontSize(10).text('Este documento es generado automáticamente y no requiere firma manual.', { align: 'center' });
+      doc.moveDown(3);
+      doc.fontSize(10).font('Helvetica-Oblique').text('Este documento es generado automáticamente y no requiere firma manual.', { align: 'center' });
       doc.text('Universidad de Medellín - Todos los derechos reservados', { align: 'center' });
 
       doc.end();
@@ -333,14 +354,16 @@ const reservarEspacio = async (req, res) => {
         return res.status(400).json({ message: 'Todos los campos son obligatorios' });
     }
 
-    /*const reservasRealizadas = await UserModel.reservaExiste(id_type, id, fecha, hora);
+    const reservasRealizadas = await UserModel.reservaExiste(id_type, id, fecha, hora);
     if (reservasRealizadas) {
+        console.log("no se puedeeeeeeeeeeeeee :)")
         return res.status(409).json({ message: 'Ya tienes una reserva en esa fecha y hora' });
-    }*/
+        
+    }
 
     const reserva = await UserModel.reservarEspacio(id_type, id, espacio, fecha, hora);
     if (reserva) {
-        return res.status(200).json({ message: 'Reserva realizada con éxito'});
+        return res.status(200).json({ok: true, message: 'Reserva realizada con éxito'});
     }
     return res.status(500).json({ message: 'Error en la reserva ya tienes una reserva a esa hora'});
 }
@@ -391,6 +414,13 @@ const updateReserva = async (req, res) => {
     const { fecha, hora } = req.body;
     console.log('Reserva ID:', hora);
     console.log('Reserva ID:', fecha);
+
+    const reservasRealizadas = await UserModel.reservaExiste(id_type, id, fecha, hora);
+    if (reservasRealizadas) {
+        console.log("no se puedeeeeeeeeeeeeee :)<3")
+        return res.status(409).json({ message: 'Ya tienes una reserva en esa fecha y hora' });
+        
+    }
     const reservaActualizada = await UserModel.updateReserva(id_type, id , reservaId, fecha, hora);
     if (reservaActualizada) {
         return res.status(200).json({ message: 'Reserva actualizada con éxito' });
